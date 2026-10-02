@@ -1,5 +1,5 @@
 import { useState, type FormEvent, useEffect } from 'react';
-import { X, Mail, Lock, Loader2, ArrowRight, User } from 'lucide-react';
+import { X, Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 
 type AuthMode = 'signin' | 'signup';
@@ -21,19 +21,12 @@ export function AuthModal({ open, initialMode, onClose, title, subtitle }: AuthM
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (open) {
-      setMode(initialMode);
-      setError(null);
-      setEmail('');
-      setPassword('');
-    }
+    if (open) { setMode(initialMode); setError(null); setEmail(''); setPassword(''); }
   }, [open, initialMode]);
 
   useEffect(() => {
     if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [open, onClose]);
@@ -41,128 +34,58 @@ export function AuthModal({ open, initialMode, onClose, title, subtitle }: AuthM
   if (!open) return null;
 
   const isSignUp = mode === 'signup';
-
   const defaultTitle = isSignUp ? 'Crear cuenta gratis' : 'Iniciar sesión';
-  const defaultSubtitle = isSignUp
-    ? 'Empieza a cotizar con IA en menos de un minuto.'
-    : 'Bienvenido de nuevo. Accede a tu panel.';
+  const defaultSubtitle = isSignUp ? 'Empieza a cotizar con IA en menos de un minuto.' : 'Accede a tu panel.';
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
-
-    const { error } = isSignUp
-      ? await signUp(email, password)
-      : await signIn(email, password);
-
+    const { error } = isSignUp ? await signUp(email, password) : await signIn(email, password);
     setLoading(false);
-
-    if (error) {
-      setError(error);
-      return;
-    }
-
+    if (error) { setError(error); return; }
     onClose();
   };
 
   return (
-    <div
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4 animate-fade-in"
-      onClick={onClose}
-    >
-      <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" />
-
-      <div
-        className="relative w-full max-w-md rounded-2xl border border-slate-200/80 bg-white p-8 shadow-2xl animate-scale-in"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600"
-          aria-label="Cerrar"
-        >
-          <X className="h-4.5 w-4.5" />
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 animate-fade-in" onClick={onClose}>
+      <div className="absolute inset-0 bg-ink/40 backdrop-blur-sm" />
+      <div className="relative w-full max-w-md bg-white border border-line p-8 animate-fade-up" style={{ borderRadius: '6px' }} onClick={(e) => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center text-ink-muted transition-colors hover:bg-bone hover:text-ink" aria-label="Cerrar" style={{ borderRadius: '4px' }}>
+          <X className="h-4 w-4" />
         </button>
 
-        <div className="mb-7">
-          <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-lg shadow-blue-600/20">
-            <User className="h-5.5 w-5.5 text-white" />
-          </div>
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900">
-            {title ?? defaultTitle}
-          </h2>
-          <p className="mt-1.5 text-sm text-slate-500">
-            {subtitle ?? defaultSubtitle}
-          </p>
+        <div className="mb-6">
+          <h2 className="text-2xl font-display font-bold text-ink">{title ?? defaultTitle}</h2>
+          <p className="mt-1.5 text-sm text-ink-muted">{subtitle ?? defaultSubtitle}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700">Email</label>
+            <label className="label-field">Email</label>
             <div className="relative">
-              <Mail className="absolute left-3.5 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-slate-400" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@empresa.com"
-                className="w-full rounded-xl border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
-              />
+              <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-muted" />
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="tu@empresa.com" className="input-field pl-11" />
             </div>
           </div>
-
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700">Contraseña</label>
+            <label className="label-field">Contraseña</label>
             <div className="relative">
-              <Lock className="absolute left-3.5 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-slate-400" />
-              <input
-                type="password"
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Mínimo 6 caracteres"
-                className="w-full rounded-xl border border-slate-200 bg-white py-3.5 pl-11 pr-4 text-sm text-slate-900 outline-none transition-all duration-200 placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-100"
-              />
+              <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-muted" />
+              <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" className="input-field pl-11" />
             </div>
           </div>
 
-          {error && (
-            <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-              {error}
-            </div>
-          )}
+          {error && <div className="border border-error bg-error-bg px-4 py-3 text-sm text-error" style={{ borderRadius: '4px' }}>{error}</div>}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="group flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 py-3.5 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="h-4.5 w-4.5 animate-spin" />
-                Procesando...
-              </>
-            ) : (
-              <>
-                {isSignUp ? 'Crear cuenta' : 'Acceder'}
-                <ArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </>
-            )}
+          <button type="submit" disabled={loading} className="btn-primary w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed">
+            {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Procesando...</> : <>{isSignUp ? 'Crear cuenta' : 'Acceder'} <ArrowRight className="h-4 w-4" /></>}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-slate-500">
+        <p className="mt-6 text-center text-sm text-ink-muted">
           {isSignUp ? '¿Ya tienes cuenta?' : '¿Aún no tienes cuenta?'}{' '}
-          <button
-            onClick={() => {
-              setMode(isSignUp ? 'signin' : 'signup');
-              setError(null);
-            }}
-            className="font-semibold text-blue-600 transition-colors hover:text-blue-700"
-          >
+          <button onClick={() => { setMode(isSignUp ? 'signin' : 'signup'); setError(null); }} className="font-semibold text-signal transition-colors hover:text-signal-dark">
             {isSignUp ? 'Iniciar sesión' : 'Crear cuenta gratis'}
           </button>
         </p>

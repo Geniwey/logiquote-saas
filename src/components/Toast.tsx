@@ -35,15 +35,15 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const dismiss = (id: number) => setToasts((prev) => prev.filter((t) => t.id !== id));
 
   const icons = {
-    success: <CheckCircle2 className="h-5 w-5 text-brand-600" />,
-    error: <AlertCircle className="h-5 w-5 text-red-500" />,
-    info: <Info className="h-5 w-5 text-blue-500" />,
+    success: <CheckCircle2 className="h-5 w-5 text-success" />,
+    error: <AlertCircle className="h-5 w-5 text-error" />,
+    info: <Info className="h-5 w-5 text-signal" />,
   };
 
   const borderColors = {
-    success: 'border-brand-200',
-    error: 'border-red-200',
-    info: 'border-blue-200',
+    success: 'border-success',
+    error: 'border-error',
+    info: 'border-signal',
   };
 
   return (
@@ -53,15 +53,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`animate-slide-in flex items-center gap-3 rounded-xl border ${borderColors[toast.type]} bg-white px-4 py-3.5 shadow-soft-lg min-w-[320px]`}
+            className={`animate-fade-up flex items-center gap-3 border-l-2 ${borderColors[toast.type]} bg-white border border-line px-4 py-3.5 shadow-lg min-w-[320px]`}
+            style={{ borderRadius: '6px' }}
           >
             <div className="flex-shrink-0">
               {icons[toast.type]}
             </div>
-            <p className="flex-1 text-sm font-medium text-slate-700">{toast.message}</p>
+            <p className="flex-1 text-sm font-medium text-ink">{toast.message}</p>
             <button
               onClick={() => dismiss(toast.id)}
-              className="flex-shrink-0 text-slate-400 transition-colors duration-300 hover:text-slate-600"
+              className="flex-shrink-0 text-ink-muted transition-colors duration-150 hover:text-ink"
               aria-label="Cerrar notificación"
             >
               <X className="h-4 w-4" />

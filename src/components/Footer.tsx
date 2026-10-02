@@ -1,77 +1,107 @@
 import { Link } from 'react-router-dom';
-import { Ship, Mail } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import { Logo } from '@/components/Logo';
+import { siteConfig } from '@/lib/content';
 
-const footerLinks = {
-  producto: [
-    { label: 'Cómo funciona', path: '/#how-it-works' },
-    { label: 'Precios', path: '/#pricing' },
-    { label: 'Cotizador Demo', path: '/cotizador/demo' },
-    { label: 'Panel de control', path: '/dashboard' },
-  ],
-  empresa: [
-    { label: 'Aviso Legal', path: '/aviso-legal' },
-    { label: 'Política de Privacidad', path: '/privacidad' },
-    { label: 'Términos y Condiciones', path: '/terminos' },
-  ],
-};
+const footerColumns = [
+  {
+    title: 'Producto',
+    links: [
+      { label: 'Cotizador', href: '/#producto' },
+      { label: 'Cómo funciona', href: '/#como-funciona' },
+      { label: 'Precios', href: '/precios' },
+      { label: 'Demo', href: '/demo' },
+      { label: 'Iniciar sesión', href: '/login' },
+    ],
+  },
+  {
+    title: 'Recursos',
+    links: [
+      { label: 'Blog', href: '/recursos' },
+      { label: 'Guía de Incoterms 2020', href: '/recursos/guia-incoterms-2020' },
+      { label: 'Calcular flete LCL', href: '/recursos/calcular-flete-lcl' },
+      { label: 'Cotización logística', href: '/recursos/que-incluye-cotizacion-logistica' },
+    ],
+  },
+  {
+    title: 'Empresa',
+    links: [
+      { label: 'Sobre nosotros', href: '/sobre-nosotros' },
+      { label: 'Contacto', href: '/contacto' },
+      { label: 'Demo', href: '/demo' },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Aviso legal', href: '/aviso-legal' },
+      { label: 'Privacidad (RGPD)', href: '/privacidad' },
+      { label: 'Cookies', href: '/cookies' },
+      { label: 'Términos y condiciones', href: '/terminos' },
+    ],
+  },
+];
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-white">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-12 md:grid-cols-4">
-          {/* Brand column */}
-          <div className="md:col-span-2">
-            <Link to="/" className="flex items-center gap-2.5">
-              <div className="flex items-center justify-center rounded-xl bg-brand-600 text-white">
-                <Ship className="h-7 w-7 p-1.5" />
-              </div>
-              <span className="text-lg font-bold tracking-tight text-slate-900">LogiQuote</span>
-            </Link>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-500">
-              Software de cotizaciones logísticas con IA para transitarios y agentes de aduanas.
-              Automatiza tus presupuestos de importación y exportación.
+    <footer className="bg-navy text-white">
+      <div className="mx-auto max-w-9xl px-6 py-16">
+        <div className="grid gap-12 md:grid-cols-12">
+          {/* Brand + contact */}
+          <div className="md:col-span-4">
+            <Logo variant="dark" size="lg" />
+            <p className="mt-4 text-sm text-white/60 leading-relaxed max-w-xs">
+              Software de cotizaciones logísticas con IA para transitarios y agentes de aduanas en España.
             </p>
-            <div className="mt-6 space-y-2">
-              <a href="mailto:soporte@logiquote.app" className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-700 transition-all duration-300 hover:border-slate-300 hover:shadow-sm">
-                <Mail className="h-4 w-4 text-blue-600" />
-                Soporte VIP: soporte@logiquote.app
+            <div className="mt-6 space-y-2 text-sm">
+              <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 text-white/70 transition-colors hover:text-signal-light">
+                <Mail className="h-4 w-4" />
+                {siteConfig.email}
               </a>
+              <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-white/70 transition-colors hover:text-signal-light">
+                <Phone className="h-4 w-4" />
+                {siteConfig.phone}
+              </a>
+              <p className="flex items-start gap-2 text-white/50 text-xs leading-relaxed">
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                {siteConfig.company.address}
+              </p>
             </div>
           </div>
 
-          {/* Product links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold text-slate-900">Producto</h3>
-            <ul className="space-y-3">
-              {footerLinks.producto.map((link) => (
-                <li key={link.label}>
-                  <Link to={link.path} className="text-sm text-slate-500 transition-colors hover:text-brand-600">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Company links */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold text-slate-900">Legal</h3>
-            <ul className="space-y-3">
-              {footerLinks.empresa.map((link) => (
-                <li key={link.label}>
-                  <Link to={link.path} className="text-sm text-slate-500 transition-colors hover:text-brand-600">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Link columns */}
+          <div className="md:col-span-8 grid grid-cols-2 gap-8 sm:grid-cols-4">
+            {footerColumns.map((col) => (
+              <div key={col.title}>
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">{col.title}</h3>
+                <ul className="space-y-2.5">
+                  {col.links.map((link) => (
+                    <li key={link.label}>
+                      <Link to={link.href} className="text-sm text-white/70 transition-colors duration-150 hover:text-signal-light">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-slate-100 pt-8 sm:flex-row">
-          <p className="text-sm text-slate-400">© 2026 LogiQuote. Todos los derechos reservados.</p>
-          <p className="text-sm text-slate-400">Hecho para transitarias modernas.</p>
+        {/* Company info */}
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-xs text-white/40 font-mono">
+            © 2026 {siteConfig.company.legalName} · CIF {siteConfig.company.cif}
+          </p>
+          <div className="flex items-center gap-4 text-xs text-white/40">
+            <span>Pagos seguros con Stripe</span>
+            <span className="text-white/20">·</span>
+            <span>RGPD</span>
+            <span className="text-white/20">·</span>
+            <span>SSL</span>
+            <span className="text-white/20">·</span>
+            <span>Datos en la UE</span>
+          </div>
         </div>
       </div>
     </footer>
