@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -21,9 +21,9 @@
   }
 
   h1, h2, h3, h4 {
-    @apply font-display text-ink;
+    @apply font-sans text-ink;
     line-height: 1.1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     font-weight: 700;
   }
 
@@ -41,27 +41,28 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-signal text-white font-semibold px-5 py-3 text-sm transition-all duration-150;
-    border-radius: 4px;
+    @apply inline-flex items-center justify-center gap-2 bg-signal text-white font-semibold px-5 py-3 text-sm transition-all duration-300 ease-out;
+    border-radius: 8px;
   }
   .btn-primary:hover {
     @apply bg-signal-dark;
+    box-shadow: 0 4px 16px rgb(232 89 12 / 0.2);
   }
   .btn-primary:active {
     transform: translateY(1px);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 border border-line bg-white text-ink font-semibold px-5 py-3 text-sm transition-all duration-150;
-    border-radius: 4px;
+    @apply inline-flex items-center justify-center gap-2 border border-line bg-white text-ink font-semibold px-5 py-3 text-sm transition-all duration-300 ease-out;
+    border-radius: 8px;
   }
   .btn-secondary:hover {
     @apply border-ink bg-bone;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center gap-1.5 text-ink font-medium text-sm transition-colors duration-150;
-    border-radius: 4px;
+    @apply inline-flex items-center gap-1.5 text-ink font-medium text-sm transition-all duration-200 ease-out;
+    border-radius: 6px;
   }
   .btn-ghost:hover {
     @apply text-signal;
@@ -69,15 +70,17 @@
 
   .card {
     @apply bg-white border border-line p-6;
-    border-radius: 6px;
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgb(0 0 0 / 0.04);
   }
 
   .input-field {
-    @apply w-full border border-line bg-white px-4 py-3 text-sm text-ink font-mono outline-none transition-colors duration-150;
-    border-radius: 4px;
+    @apply w-full border border-line bg-white px-4 py-3 text-sm text-ink font-mono outline-none transition-all duration-200 ease-out;
+    border-radius: 6px;
   }
   .input-field:focus {
     @apply border-signal;
+    box-shadow: 0 0 0 3px rgb(232 89 12 / 0.08);
   }
   .input-field::placeholder {
     @apply text-ink-muted;
@@ -92,7 +95,7 @@
   }
 
   .link-underline {
-    @apply text-ink transition-colors duration-150 hover:text-signal;
+    @apply text-ink transition-colors duration-200 hover:text-signal;
     text-decoration: underline;
     text-underline-offset: 2px;
     text-decoration-color: #D9D5CB;
@@ -102,7 +105,10 @@
   }
 
   .nav-link {
-    @apply text-ink-light font-medium text-sm transition-colors duration-150 hover:text-signal;
+    @apply text-ink-light font-medium text-sm transition-all duration-200 ease-out;
+  }
+  .nav-link:hover {
+    @apply text-signal;
   }
 }
 
