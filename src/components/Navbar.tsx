@@ -26,7 +26,7 @@ export function Navbar() {
   return (
     <>
       {/* Top bar */}
-      <div className="hidden md:block bg-navy text-white/70 text-xs">
+      <div className="hidden md:block bg-slate-900 text-slate-300 text-xs">
         <div className="mx-auto max-w-9xl px-6 py-2 flex items-center justify-between">
           <p className="font-mono">
             Demo guiada de 20 min con un especialista en tarifas —{' '}
@@ -34,7 +34,7 @@ export function Navbar() {
               Reservar plaza
             </Link>
           </p>
-          <p className="font-mono text-white/40">{siteConfig.phone}</p>
+          <p className="font-mono text-slate-500">{siteConfig.phone}</p>
         </div>
       </div>
 
@@ -45,8 +45,8 @@ export function Navbar() {
         transition={{ duration: 0.5, ease: easeOut }}
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-bone/80 backdrop-blur-xl border-b border-line/60 shadow-[0_4px_24px_rgb(0,0,0,0.04)]'
-            : 'bg-bone/50 backdrop-blur-md border-b border-transparent'
+            ? 'bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-[0_4px_24px_rgb(0,0,0,0.04)]'
+            : 'bg-white/40 backdrop-blur-md border-b border-transparent'
         }`}
       >
         <div className="mx-auto max-w-9xl px-6">
@@ -80,7 +80,7 @@ export function Navbar() {
               onClick={() => setMobileOpen(true)}
               aria-label="Abrir menú"
             >
-              <Menu className="h-5 w-5 text-ink" />
+              <Menu className="h-5 w-5 text-slate-900" />
             </button>
           </div>
         </div>
@@ -94,16 +94,16 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: easeOut }}
-            className="fixed inset-0 z-[100] bg-bone backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-[100] bg-white backdrop-blur-xl lg:hidden"
           >
-            <div className="flex h-16 items-center justify-between px-6 border-b border-line/60">
+            <div className="flex h-16 items-center justify-between px-6 border-b border-slate-200">
               <Logo />
               <button
                 className="flex h-10 w-10 items-center justify-center"
                 onClick={() => setMobileOpen(false)}
                 aria-label="Cerrar menú"
               >
-                <X className="h-5 w-5 text-ink" />
+                <X className="h-5 w-5 text-slate-900" />
               </button>
             </div>
             <motion.nav
@@ -117,25 +117,18 @@ export function Navbar() {
                   key={item.label}
                   to={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="py-3 text-lg font-display font-semibold text-ink border-b border-line/40 transition-colors hover:text-signal"
+                  className="py-3 text-lg font-display font-semibold text-slate-900 border-b border-slate-200/60 transition-colors hover:text-signal"
                 >
                   {item.label}
                 </Link>
               ))}
               <button
-                onClick={() => {
-                  setMobileOpen(false);
-                  handleLogin();
-                }}
-                className="py-3 text-lg font-display font-semibold text-ink border-b border-line/40 text-left transition-colors hover:text-signal"
+                onClick={() => { setMobileOpen(false); handleLogin(); }}
+                className="py-3 text-lg font-display font-semibold text-slate-900 border-b border-slate-200/60 text-left transition-colors hover:text-signal"
               >
                 {session ? 'Mi panel' : 'Iniciar sesión'}
               </button>
-              <Link
-                to="/demo"
-                onClick={() => setMobileOpen(false)}
-                className="btn-primary mt-6 w-full"
-              >
+              <Link to="/demo" onClick={() => setMobileOpen(false)} className="btn-primary mt-6 w-full">
                 Solicitar demo
                 <ArrowRight className="h-4 w-4" />
               </Link>
