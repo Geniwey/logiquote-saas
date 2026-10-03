@@ -1,9 +1,11 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Mail, Lock, Loader2, ArrowRight, ArrowLeft, ShieldCheck, Zap } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 import { Logo } from '@/components/Logo';
 import { SEO } from '@/components/SEO';
+import { easeOut, staggerContainer, staggerItem } from '@/lib/animations';
 
 type Mode = 'signin' | 'signup';
 
@@ -35,24 +37,38 @@ export default function LoginPage() {
         description="Accede a tu panel de control de LogiQuote."
       />
 
-      <div className="min-h-screen bg-bone flex flex-col">
-        <div className="flex items-center justify-between px-6 py-4">
+      <div className="min-h-screen bg-bone flex flex-col relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[600px] w-[600px] rounded-full bg-signal/5 blur-[140px]" />
+          <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-navy/5 blur-[100px]" />
+        </div>
+
+        <div className="relative flex items-center justify-between px-6 py-4">
           <Logo />
           <Link to="/" className="btn-ghost"><ArrowLeft className="h-4 w-4" /> Volver al inicio</Link>
         </div>
 
-        <div className="flex-1 flex items-center justify-center px-4">
-          <div className="w-full max-w-md">
-            <div className="mb-8">
-              <h1 className="text-3xl font-display font-bold text-ink">
+        <div className="relative flex-1 flex items-center justify-center px-4">
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            className="w-full max-w-md"
+          >
+            <motion.div variants={staggerItem} className="mb-8">
+              <h1 className="text-3xl font-display font-bold tracking-tighter text-ink">
                 {isSignUp ? 'Crear cuenta gratis' : 'Iniciar sesión'}
               </h1>
               <p className="mt-2 text-sm text-ink-muted">
                 {isSignUp ? 'Empieza a cotizar con IA en menos de un minuto.' : 'Bienvenido de nuevo. Accede a tu panel.'}
               </p>
-            </div>
+            </motion.div>
 
-            <div className="bg-white border border-line p-8" style={{ borderRadius: '6px' }}>
+            <motion.div
+              variants={staggerItem}
+              className="bg-white/80 backdrop-blur-xl border border-line/60 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+              style={{ borderRadius: '8px' }}
+            >
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label className="label-field">Email</label>
@@ -69,11 +85,18 @@ export default function LoginPage() {
                   </div>
                 </div>
 
-                {error && <div className="border border-error bg-error-bg px-4 py-3 text-sm text-error" style={{ borderRadius: '4px' }}>{error}</div>}
+                {error && <div className="border border-error bg-error-bg px-4 py-3 text-sm text-error" style={{ borderRadius: '6px' }}>{error}</div>}
 
-                <button type="submit" disabled={loading} className="btn-primary w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed">
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.01 }}
+                  whileTap={{ scale: 0.99 }}
+                  transition={{ duration: 0.2, ease: easeOut }}
+                  disabled={loading}
+                  className="btn-primary w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
                   {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Procesando...</> : <>{isSignUp ? 'Crear cuenta' : 'Acceder'} <ArrowRight className="h-4 w-4" /></>}
-                </button>
+                </motion.button>
               </form>
 
               <p className="mt-6 text-center text-sm text-ink-muted">
@@ -82,13 +105,13 @@ export default function LoginPage() {
                   {isSignUp ? 'Iniciar sesión' : 'Crear cuenta gratis'}
                 </button>
               </p>
-            </div>
+            </motion.div>
 
-            <div className="mt-6 flex items-center justify-center gap-6 text-xs text-ink-muted font-mono">
+            <motion.div variants={staggerItem} className="mt-6 flex items-center justify-center gap-6 text-xs text-ink-muted font-mono">
               <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" /> Datos cifrados</span>
               <span className="flex items-center gap-1.5"><Zap className="h-3.5 w-3.5" /> Sin permanencia</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </>

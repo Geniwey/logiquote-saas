@@ -44,25 +44,28 @@ const footerColumns = [
 
 export function Footer() {
   return (
-    <footer className="bg-navy text-white">
-      <div className="mx-auto max-w-9xl px-6 py-16">
+    <footer className="bg-navy text-white relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[300px] w-[600px] rounded-full bg-signal/5 blur-[120px]" />
+      </div>
+      <div className="relative mx-auto max-w-9xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-12">
           {/* Brand + contact */}
           <div className="md:col-span-4">
             <Logo variant="dark" size="lg" />
-            <p className="mt-4 text-sm text-white/60 leading-relaxed max-w-xs">
+            <p className="mt-4 text-sm text-white/50 leading-relaxed max-w-xs">
               Software de cotizaciones logísticas con IA para transitarios y agentes de aduanas en España.
             </p>
             <div className="mt-6 space-y-2 text-sm">
-              <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 text-white/70 transition-colors hover:text-signal-light">
+              <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 text-white/60 transition-colors duration-200 hover:text-signal-light">
                 <Mail className="h-4 w-4" />
                 {siteConfig.email}
               </a>
-              <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-white/70 transition-colors hover:text-signal-light">
+              <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-white/60 transition-colors duration-200 hover:text-signal-light">
                 <Phone className="h-4 w-4" />
                 {siteConfig.phone}
               </a>
-              <p className="flex items-start gap-2 text-white/50 text-xs leading-relaxed">
+              <p className="flex items-start gap-2 text-white/40 text-xs leading-relaxed">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 {siteConfig.company.address}
               </p>
@@ -73,11 +76,11 @@ export function Footer() {
           <div className="md:col-span-8 grid grid-cols-2 gap-8 sm:grid-cols-4">
             {footerColumns.map((col) => (
               <div key={col.title}>
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-white/40 mb-4">{col.title}</h3>
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-white/30 mb-4">{col.title}</h3>
                 <ul className="space-y-2.5">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <Link to={link.href} className="text-sm text-white/70 transition-colors duration-150 hover:text-signal-light">
+                      <Link to={link.href} className="text-sm text-white/60 transition-colors duration-200 hover:text-signal-light">
                         {link.label}
                       </Link>
                     </li>
@@ -90,16 +93,16 @@ export function Footer() {
 
         {/* Company info */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-white/40 font-mono">
+          <p className="text-xs text-white/30 font-mono">
             © 2026 {siteConfig.company.legalName} · CIF {siteConfig.company.cif}
           </p>
-          <div className="flex items-center gap-4 text-xs text-white/40">
+          <div className="flex items-center gap-4 text-xs text-white/30">
             <span>Pagos seguros con Stripe</span>
-            <span className="text-white/20">·</span>
+            <span className="text-white/15">·</span>
             <span>RGPD</span>
-            <span className="text-white/20">·</span>
+            <span className="text-white/15">·</span>
             <span>SSL</span>
-            <span className="text-white/20">·</span>
+            <span className="text-white/15">·</span>
             <span>Datos en la UE</span>
           </div>
         </div>

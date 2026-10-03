@@ -1,9 +1,11 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, ArrowRight } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { resources } from '@/lib/content';
+import { staggerContainer, staggerItem, scaleIn } from '@/lib/animations';
 
 const articleContent: Record<string, { toc: string[]; body: { h2: string; paragraphs: string[] }[] }> = {
   'guia-incoterms-2020': {
@@ -193,56 +195,85 @@ export default function ArticleTemplate() {
       <div className="min-h-screen bg-bone">
         <Navbar />
         <main>
-          <article className="mx-auto max-w-3xl px-6 py-20 md:py-28">
-            <Link to="/recursos" className="btn-ghost mb-8"><ArrowLeft className="h-4 w-4" /> Recursos</Link>
+          <article className="mx-auto max-w-3xl px-6 py-24 md:py-32">
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Link to="/recursos" className="btn-ghost mb-8"><ArrowLeft className="h-4 w-4" /> Recursos</Link>
+            </motion.div>
 
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-xs font-mono text-signal border border-signal px-2 py-0.5" style={{ borderRadius: '4px' }}>{article.category}</span>
-              <span className="text-xs font-mono text-ink-muted flex items-center gap-1"><Clock className="h-3 w-3" /> {article.readTime}</span>
-            </div>
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div variants={staggerItem} className="flex items-center gap-3 mb-6">
+                <span className="text-xs font-mono text-signal border border-signal px-2 py-0.5" style={{ borderRadius: '6px' }}>{article.category}</span>
+                <span className="text-xs font-mono text-ink-muted flex items-center gap-1"><Clock className="h-3 w-3" /> {article.readTime}</span>
+              </motion.div>
 
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-ink leading-tight mb-6">{article.title}</h1>
+              <motion.h1 variants={staggerItem} className="text-3xl md:text-4xl lg:text-5xl font-display font-bold tracking-tighter text-ink leading-tight mb-6">{article.title}</motion.h1>
 
-            <div className="flex items-center gap-4 text-sm text-ink-muted border-b border-line pb-6 mb-10">
-              <span>{article.author}</span>
-              <span className="font-mono">{new Date(article.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-            </div>
+              <motion.div variants={staggerItem} className="flex items-center gap-4 text-sm text-ink-muted border-b border-line pb-6 mb-10">
+                <span>{article.author}</span>
+                <span className="font-mono">{new Date(article.date).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+              </motion.div>
 
-            {/* TOC */}
-            <div className="border border-line bg-white p-6 mb-12" style={{ borderRadius: '6px' }}>
-              <p className="text-xs font-mono text-ink-muted uppercase tracking-wider mb-3">Índice</p>
-              <ol className="space-y-2">
-                {content.toc.map((item, i) => (
-                  <li key={i} className="text-sm text-ink-light flex items-baseline gap-3">
-                    <span className="font-mono text-ink-muted text-xs">{String(i + 1).padStart(2, '0')}</span>
-                    {item}
-                  </li>
-                ))}
-              </ol>
-            </div>
+              {/* TOC */}
+              <motion.div variants={staggerItem} className="border border-line bg-white/80 backdrop-blur-xl p-6 mb-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '8px' }}>
+                <p className="text-xs font-mono text-ink-muted uppercase tracking-wider mb-3">Índice</p>
+                <ol className="space-y-2">
+                  {content.toc.map((item, i) => (
+                    <li key={i} className="text-sm text-ink-light flex items-baseline gap-3">
+                      <span className="font-mono text-ink-muted text-xs">{String(i + 1).padStart(2, '0')}</span>
+                      {item}
+                    </li>
+                  ))}
+                </ol>
+              </motion.div>
+            </motion.div>
 
             {/* Body */}
-            <div className="space-y-10">
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-40px' }}
+              className="space-y-10"
+            >
               {content.body.map((section, i) => (
-                <section key={i}>
-                  <h2 className="text-2xl font-display font-semibold text-ink mb-4">{section.h2}</h2>
+                <motion.section key={i} variants={staggerItem}>
+                  <h2 className="text-2xl font-display font-semibold tracking-tight text-ink mb-4">{section.h2}</h2>
                   <div className="space-y-4">
                     {section.paragraphs.map((p, j) => (
-                      <p key={j} className="text-ink-light leading-relaxed">{p}</p>
+                      <p key={j} className="text-ink-muted leading-relaxed">{p}</p>
                     ))}
                   </div>
-                </section>
+                </motion.section>
               ))}
-            </div>
+            </motion.div>
 
             {/* CTA */}
-            <div className="mt-16 border-t border-line pt-12">
-              <div className="bg-navy text-white p-8" style={{ borderRadius: '6px' }}>
-                <h2 className="text-xl font-display font-semibold text-white mb-3">¿Quieres cotizar con tu propio tarifario?</h2>
-                <p className="text-white/60 text-sm mb-6">Crea una cuenta gratis en LogiQuote y sube tu tarifario. La IA generará cotizaciones completas en segundos.</p>
-                <Link to="/login" className="btn-primary">Probar gratis 14 días <ArrowRight className="h-4 w-4" /></Link>
+            <motion.div
+              variants={scaleIn}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              className="mt-16 border-t border-line pt-12"
+            >
+              <div className="bg-navy relative overflow-hidden p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)]" style={{ borderRadius: '8px' }}>
+                <div className="pointer-events-none absolute inset-0">
+                  <div className="absolute bottom-0 right-0 h-[300px] w-[300px] rounded-full bg-signal/10 blur-[100px]" />
+                </div>
+                <div className="relative">
+                  <h2 className="text-xl font-display font-semibold tracking-tight text-white mb-3">¿Quieres cotizar con tu propio tarifario?</h2>
+                  <p className="text-white/50 text-sm mb-6">Crea una cuenta gratis en LogiQuote y sube tu tarifario. La IA generará cotizaciones completas en segundos.</p>
+                  <Link to="/login" className="btn-primary">Probar gratis 14 días <ArrowRight className="h-4 w-4" /></Link>
+                </div>
               </div>
-            </div>
+            </motion.div>
           </article>
         </main>
         <Footer />
