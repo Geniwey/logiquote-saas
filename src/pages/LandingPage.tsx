@@ -11,12 +11,12 @@ import {
   Minus,
   Plus,
   Sparkles,
-  ShieldCheck,
+  Ship,
+  Users,
   Clock,
+  ShieldCheck,
   Globe,
   Zap,
-  Users,
-  Ship,
 } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
@@ -30,6 +30,11 @@ import {
   staggerItem,
   whileHoverCard,
 } from '@/lib/animations';
+
+const HERO_IMAGE = 'https://images.pexels.com/photos/6572432/pexels-photo-6572432.jpeg?auto=compress&cs=tinysrgb&w=1600';
+const PROBLEM_IMAGE = 'https://images.pexels.com/photos/3856433/pexels-photo-3856433.jpeg?auto=compress&cs=tinysrgb&w=1200';
+const STEP2_IMAGE = 'https://images.pexels.com/photos/262353/pexels-photo-262353.jpeg?auto=compress&cs=tinysrgb&w=1200';
+const CTA_IMAGE = 'https://images.pexels.com/photos/13783083/pexels-photo-13783083.png?auto=compress&cs=tinysrgb&w=1600';
 
 const trustBadges = [
   'Incoterms 2020',
@@ -143,45 +148,55 @@ export default function LandingPage() {
         title={authMode === 'signup' ? 'Crear cuenta gratis para probar la demo' : 'Iniciar sesión'}
       />
 
-      <div className="min-h-screen bg-bone">
+      <div className="min-h-screen bg-white">
         <Navbar />
 
         <main>
-          {/* ─── Hero ─── */}
-          <section className="relative border-b border-line overflow-hidden">
-            {/* Mesh gradient background */}
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              <div className="absolute -top-48 -right-48 h-[600px] w-[600px] rounded-full bg-signal/8 blur-[120px]" />
-              <div className="absolute top-40 -left-48 h-[400px] w-[400px] rounded-full bg-indigo-400/6 blur-[100px]" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[300px] w-[800px] rounded-full bg-slate-300/8 blur-[120px]" />
+          {/* ─── Hero — immersive photo background + floating glassmorphism mockup ─── */}
+          <section className="relative min-h-[100vh] flex items-center overflow-hidden">
+            {/* Full-bleed photo */}
+            <div className="absolute inset-0">
+              <img
+                src={HERO_IMAGE}
+                alt="Vista aérea de buque portacontenedores con grúas en puerto logístico"
+                className="w-full h-full object-cover"
+                loading="eager"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-900/70 to-slate-900/30" />
             </div>
 
-            <div className="relative mx-auto max-w-9xl px-6 py-24 md:py-32">
+            {/* Mesh glow */}
+            <div className="pointer-events-none absolute inset-0">
+              <div className="absolute -top-48 right-1/4 h-[500px] w-[500px] rounded-full bg-indigo-500/20 blur-[120px]" />
+              <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-indigo-600/10 blur-[100px]" />
+            </div>
+
+            <div className="relative mx-auto max-w-9xl px-6 py-24 md:py-32 w-full">
               <div className="grid lg:grid-cols-12 gap-16 items-center">
                 {/* Left — copy */}
-                <div className="lg:col-span-6">
+                <div className="lg:col-span-7">
                   <motion.div
                     variants={staggerContainer}
                     initial="hidden"
                     animate="visible"
                   >
                     <motion.div variants={staggerItem} className="mb-6">
-                      <span className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/60 backdrop-blur-sm px-3.5 py-1.5 text-xs font-medium text-slate-600">
-                        <Sparkles className="h-3.5 w-3.5 text-signal" />
+                      <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 backdrop-blur-md px-3.5 py-1.5 text-xs font-medium text-slate-300">
+                        <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
                         Cotizaciones logísticas con IA
                       </span>
                     </motion.div>
 
                     <motion.h1
                       variants={staggerItem}
-                      className="text-4xl md:text-5xl lg:text-[3.75rem] font-display font-semibold tracking-tighter text-ink leading-[1.05]"
+                      className="text-4xl md:text-5xl lg:text-[4rem] font-display font-semibold tracking-tighter text-white leading-[1.05]"
                     >
                       Cotiza importaciones en minutos, no en horas.
                     </motion.h1>
 
                     <motion.p
                       variants={staggerItem}
-                      className="mt-6 text-lg text-slate-500 leading-relaxed max-w-xl"
+                      className="mt-6 text-lg text-slate-300 leading-relaxed max-w-xl"
                     >
                       El software que lee tu tarifario y genera cotizaciones profesionales con IA.
                       Para transitarios y agentes de aduanas que no pueden esperar tres días para responder a un cliente.
@@ -201,26 +216,20 @@ export default function LandingPage() {
                         Probar gratis 14 días
                         <ArrowRight className="h-4 w-4" />
                       </motion.button>
-                      <Link to="/cotizador/demo" className="btn-secondary">
+                      <Link to="/cotizador/demo" className="btn-secondary bg-white/10 border-white/20 text-white hover:bg-white/15 hover:border-white/40">
                         Ver una cotización de ejemplo
                       </Link>
                     </motion.div>
 
-                    <motion.p
-                      variants={staggerItem}
-                      className="mt-4 text-sm text-slate-400 font-mono"
-                    >
+                    <motion.p variants={staggerItem} className="mt-4 text-sm text-slate-400 font-mono">
                       Sin tarjeta · Cancela cuando quieras · Datos en la UE
                     </motion.p>
 
                     {/* Stats */}
-                    <motion.div
-                      variants={staggerItem}
-                      className="mt-12 grid grid-cols-3 gap-6 border-t border-slate-200 pt-8"
-                    >
+                    <motion.div variants={staggerItem} className="mt-12 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
                       {heroStats.map((stat) => (
                         <div key={stat.label}>
-                          <p className="text-3xl font-mono font-semibold text-slate-900">{stat.value}</p>
+                          <p className="text-3xl font-mono font-semibold text-white">{stat.value}</p>
                           <p className="text-xs text-slate-400 mt-1">{stat.label}</p>
                         </div>
                       ))}
@@ -228,14 +237,14 @@ export default function LandingPage() {
                   </motion.div>
                 </div>
 
-                {/* Right — pure-code UI mockup with glassmorphism */}
+                {/* Right — floating glassmorphism mockup over photo */}
                 <motion.div
-                  initial={{ opacity: 0, y: 40 }}
+                  initial={{ opacity: 0, y: 60 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.3, ease: easeOut }}
-                  className="lg:col-span-6"
+                  transition={{ duration: 0.8, delay: 0.4, ease: easeOut }}
+                  className="lg:col-span-5 hidden lg:block"
                 >
-                  <HeroMockup />
+                  <FloatingMockup />
                 </motion.div>
               </div>
             </div>
@@ -253,28 +262,59 @@ export default function LandingPage() {
             </div>
           </section>
 
-          {/* ─── The Problem ─── */}
-          <section className="border-b border-slate-200">
+          {/* ─── The Problem — photo with overlaid UI card ─── */}
+          <section className="border-b border-slate-200 bg-white">
             <div className="mx-auto max-w-9xl px-6 py-24 md:py-32">
-              <div className="grid lg:grid-cols-12 gap-16">
-                {/* Code-based visual replacing stock photo */}
+              <div className="grid lg:grid-cols-12 gap-16 items-center">
+                {/* Photo with rounded-3xl + glassmorphism overlay */}
                 <motion.div
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-80px' }}
-                  className="lg:col-span-5"
+                  viewport={{ once: true, margin: '-100px' }}
+                  className="lg:col-span-6"
                 >
-                  <motion.div variants={staggerItem}>
-                    <ProblemVisual />
+                  <motion.div variants={staggerItem} className="relative">
+                    <div className="relative overflow-hidden" style={{ borderRadius: '24px' }}>
+                      <img
+                        src={PROBLEM_IMAGE}
+                        alt="Contenedores apilados en terminal portuario logístico"
+                        width={1200}
+                        height={800}
+                        className="w-full h-[400px] lg:h-[480px] object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
+
+                      {/* Floating problem card over photo */}
+                      <motion.div
+                        animate={{ y: [0, -10, 0] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                        className="absolute bottom-6 left-6 right-6 bg-white/70 backdrop-blur-xl border border-white/30 shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-5"
+                        style={{ borderRadius: '16px' }}
+                      >
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="flex h-6 w-6 items-center justify-center bg-red-50 rounded-md">
+                            <Clock className="h-3.5 w-3.5 text-red-500" />
+                          </div>
+                          <span className="text-xs font-mono text-slate-600">Proceso manual actual</span>
+                        </div>
+                        <div className="grid grid-cols-3 gap-3 font-mono text-xs">
+                          <div><p className="text-slate-400">Tarifario</p><p className="text-slate-700">PDF</p></div>
+                          <div><p className="text-slate-400">Cálculo</p><p className="text-slate-700">Excel</p></div>
+                          <div><p className="text-slate-400">Envío</p><p className="text-slate-700">Correo</p></div>
+                        </div>
+                      </motion.div>
+                    </div>
                   </motion.div>
                 </motion.div>
-                <div className="lg:col-span-7 lg:pl-8">
+
+                <div className="lg:col-span-6 lg:pl-8">
                   <motion.div
                     variants={staggerContainer}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: '-80px' }}
+                    viewport={{ once: true, margin: '-100px' }}
                   >
                     <motion.p variants={staggerItem} className="text-xs font-mono text-signal uppercase tracking-wider mb-4">El problema</motion.p>
                     <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-display font-semibold tracking-tighter text-slate-900 leading-tight">
@@ -308,13 +348,13 @@ export default function LandingPage() {
           </section>
 
           {/* ─── How it works ─── */}
-          <section id="como-funciona" className="border-b border-slate-200 bg-white">
+          <section id="como-funciona" className="border-b border-slate-200 bg-slate-50">
             <div className="mx-auto max-w-9xl px-6 py-24 md:py-32">
               <motion.div
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, margin: '-100px' }}
                 className="mb-20"
               >
                 <motion.p variants={staggerItem} className="text-xs font-mono text-signal uppercase tracking-wider mb-4">Cómo funciona</motion.p>
@@ -327,7 +367,7 @@ export default function LandingPage() {
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-80px' }}
+                  viewport={{ once: true, margin: '-100px' }}
                   className="grid lg:grid-cols-12 gap-16 items-center"
                 >
                   <motion.div variants={staggerItem} className="lg:col-span-5">
@@ -340,8 +380,8 @@ export default function LandingPage() {
                     <p className="mt-4 text-sm font-mono text-slate-400">~10 minutos de configuración inicial.</p>
                   </motion.div>
                   <motion.div variants={staggerItem} className="lg:col-span-7">
-                    <div className="bg-slate-900 p-1.5" style={{ borderRadius: '10px' }}>
-                      <div className="bg-slate-950 p-5 font-mono text-sm leading-relaxed overflow-x-auto scrollbar-thin" style={{ borderRadius: '8px' }}>
+                    <div className="bg-slate-900 p-1.5" style={{ borderRadius: '16px' }}>
+                      <div className="bg-slate-950 p-5 font-mono text-sm leading-relaxed overflow-x-auto scrollbar-thin" style={{ borderRadius: '14px' }}>
                         <div className="flex items-center gap-2 mb-3 text-slate-500 text-xs">
                           <div className="flex gap-1.5">
                             <div className="h-2.5 w-2.5 rounded-full bg-slate-700" />
@@ -356,16 +396,55 @@ export default function LandingPage() {
                   </motion.div>
                 </motion.div>
 
-                {/* Step 2 */}
+                {/* Step 2 — photo with floating AI card */}
                 <motion.div
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-80px' }}
+                  viewport={{ once: true, margin: '-100px' }}
                   className="grid lg:grid-cols-12 gap-16 items-center"
                 >
                   <motion.div variants={staggerItem} className="lg:col-span-7 lg:order-1 order-2">
-                    <Step2Mockup />
+                    <div className="relative overflow-hidden" style={{ borderRadius: '24px' }}>
+                      <img
+                        src={STEP2_IMAGE}
+                        alt="Buque de carga navegando al atardecer"
+                        width={1200}
+                        height={800}
+                        className="w-full h-[300px] lg:h-[420px] object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-900/20 to-transparent" />
+
+                      {/* Floating AI processing card */}
+                      <motion.div
+                        animate={{ y: [0, -12, 0] }}
+                        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                        className="absolute bottom-6 left-6 right-6 bg-white/70 backdrop-blur-xl border border-white/30 shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-5"
+                        style={{ borderRadius: '16px' }}
+                      >
+                        <div className="flex items-center gap-2 mb-4">
+                          <div className="flex h-6 w-6 items-center justify-center bg-indigo-50 rounded-md">
+                            <Sparkles className="h-3.5 w-3.5 text-indigo-600" />
+                          </div>
+                          <span className="text-xs font-semibold text-slate-700">IA procesando cotización</span>
+                        </div>
+                        <div className="space-y-2.5">
+                          {[
+                            { label: 'Leyendo tarifario base', done: true },
+                            { label: 'Calculando flete + aranceles', done: true },
+                            { label: 'Aplicando margen Incoterm', done: false },
+                          ].map((s, i) => (
+                            <div key={i} className="flex items-center gap-3">
+                              <div className={`flex h-4 w-4 items-center justify-center rounded ${s.done ? 'bg-emerald-50' : 'bg-slate-100'}`}>
+                                {s.done ? <Check className="h-2.5 w-2.5 text-emerald-600" /> : <Clock className="h-2.5 w-2.5 text-slate-400" />}
+                              </div>
+                              <span className={`text-xs font-mono ${s.done ? 'text-slate-700' : 'text-slate-400'}`}>{s.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </div>
                   </motion.div>
                   <motion.div variants={staggerItem} className="lg:col-span-5 lg:order-2 order-1">
                     <span className="text-6xl font-mono font-bold text-slate-200 block mb-4">02</span>
@@ -384,7 +463,7 @@ export default function LandingPage() {
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-80px' }}
+                  viewport={{ once: true, margin: '-100px' }}
                   className="grid lg:grid-cols-12 gap-16 items-center"
                 >
                   <motion.div variants={staggerItem} className="lg:col-span-5">
@@ -398,7 +477,7 @@ export default function LandingPage() {
                     <p className="mt-4 text-sm font-mono text-slate-400">Email + datos de ruta capturados automáticamente.</p>
                   </motion.div>
                   <motion.div variants={staggerItem} className="lg:col-span-7">
-                    <div className="bg-white border border-slate-200 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '10px' }}>
+                    <div className="bg-white border border-slate-200 overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '16px' }}>
                       <div className="border-b border-slate-200 bg-slate-50/80 px-5 py-3 flex items-center justify-between">
                         <span className="text-sm font-medium text-slate-900">Leads recientes</span>
                         <span className="text-xs font-mono text-slate-400">Panel · Esta semana</span>
@@ -427,13 +506,13 @@ export default function LandingPage() {
           </section>
 
           {/* ─── Product detail ─── */}
-          <section id="producto" className="border-b border-slate-200">
+          <section id="producto" className="border-b border-slate-200 bg-white">
             <div className="mx-auto max-w-9xl px-6 py-24 md:py-32">
               <motion.div
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, margin: '-100px' }}
                 className="mb-20"
               >
                 <motion.p variants={staggerItem} className="text-xs font-mono text-signal uppercase tracking-wider mb-4">Producto</motion.p>
@@ -447,7 +526,7 @@ export default function LandingPage() {
                     variants={staggerContainer}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: '-80px' }}
+                    viewport={{ once: true, margin: '-100px' }}
                     className="grid lg:grid-cols-12 gap-16 items-center"
                   >
                     <motion.div variants={staggerItem} className={`lg:col-span-5 ${block.imageLeft ? 'lg:order-2' : ''}`}>
@@ -473,8 +552,8 @@ export default function LandingPage() {
           {/* ─── Live calculator ─── */}
           <section className="border-b border-slate-200 bg-slate-900 text-white relative overflow-hidden">
             <div className="pointer-events-none absolute inset-0">
-              <div className="absolute top-0 right-0 h-[400px] w-[400px] rounded-full bg-signal/15 blur-[120px]" />
-              <div className="absolute bottom-0 left-0 h-[300px] w-[300px] rounded-full bg-indigo-500/10 blur-[100px]" />
+              <div className="absolute top-0 right-0 h-[400px] w-[400px] rounded-full bg-indigo-500/15 blur-[120px]" />
+              <div className="absolute bottom-0 left-0 h-[300px] w-[300px] rounded-full bg-indigo-600/10 blur-[100px]" />
             </div>
             <div className="relative mx-auto max-w-9xl px-6 py-24 md:py-32">
               <div className="grid lg:grid-cols-12 gap-16">
@@ -482,10 +561,10 @@ export default function LandingPage() {
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-80px' }}
+                  viewport={{ once: true, margin: '-100px' }}
                   className="lg:col-span-5"
                 >
-                  <motion.p variants={staggerItem} className="text-xs font-mono text-signal-light uppercase tracking-wider mb-4">Pruébalo ahora</motion.p>
+                  <motion.p variants={staggerItem} className="text-xs font-mono text-indigo-400 uppercase tracking-wider mb-4">Pruébalo ahora</motion.p>
                   <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-display font-semibold tracking-tighter text-white mb-6">
                     Calcula una cotización de ejemplo.
                   </motion.h2>
@@ -497,7 +576,7 @@ export default function LandingPage() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.96 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: '-80px' }}
+                  viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.5, ease: easeOut }}
                   className="lg:col-span-7"
                 >
@@ -514,7 +593,7 @@ export default function LandingPage() {
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, margin: '-100px' }}
                 className="mb-16"
               >
                 <motion.p variants={staggerItem} className="text-xs font-mono text-signal uppercase tracking-wider mb-4">Casos de uso</motion.p>
@@ -525,7 +604,7 @@ export default function LandingPage() {
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, margin: '-100px' }}
                 className="grid gap-px bg-slate-200"
               >
                 {useCases.map((uc) => (
@@ -546,13 +625,13 @@ export default function LandingPage() {
           </section>
 
           {/* ─── Pricing ─── */}
-          <section className="border-b border-slate-200 bg-white">
+          <section className="border-b border-slate-200 bg-slate-50">
             <div className="mx-auto max-w-9xl px-6 py-24 md:py-32">
               <motion.div
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, margin: '-100px' }}
                 className="mb-12 text-center"
               >
                 <motion.p variants={staggerItem} className="text-xs font-mono text-signal uppercase tracking-wider mb-4">Precios</motion.p>
@@ -585,18 +664,18 @@ export default function LandingPage() {
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, margin: '-100px' }}
                 className="grid md:grid-cols-3 gap-6 mb-16"
               >
                 {plans.map((plan) => (
                   <motion.div
                     key={plan.name}
                     variants={staggerItem}
-                    whileHover={{ y: -6, transition: { duration: 0.3, ease: easeOut } }}
-                    className={`relative bg-white p-8 border transition-shadow duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] ${
+                    whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.3, ease: easeOut } }}
+                    className={`relative bg-white p-8 border transition-shadow duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] ${
                       plan.highlighted ? 'border-signal border-2' : 'border-slate-200'
                     }`}
-                    style={{ borderRadius: '10px' }}
+                    style={{ borderRadius: '16px' }}
                   >
                     {plan.highlighted && (
                       <span className="absolute -top-3 left-8 bg-signal text-white text-xs font-semibold px-3 py-1" style={{ borderRadius: '6px' }}>
@@ -628,23 +707,21 @@ export default function LandingPage() {
               </motion.div>
 
               <div className="text-center space-y-2">
-                <p className="text-sm text-slate-400 font-mono">
-                  Precios en euros · IVA no incluido · Pagos procesados con Stripe
-                </p>
+                <p className="text-sm text-slate-400 font-mono">Precios en euros · IVA no incluido · Pagos procesados con Stripe</p>
                 <p className="text-sm text-slate-400">Cancela cuando quieras · Sin permanencia · Factura con tu CIF</p>
               </div>
             </div>
           </section>
 
           {/* ─── ROI Calculator ─── */}
-          <section className="border-b border-slate-200">
+          <section className="border-b border-slate-200 bg-white">
             <div className="mx-auto max-w-9xl px-6 py-24 md:py-32">
               <div className="grid lg:grid-cols-12 gap-16">
                 <motion.div
                   variants={staggerContainer}
                   initial="hidden"
                   whileInView="visible"
-                  viewport={{ once: true, margin: '-80px' }}
+                  viewport={{ once: true, margin: '-100px' }}
                   className="lg:col-span-5"
                 >
                   <motion.p variants={staggerItem} className="text-xs font-mono text-signal uppercase tracking-wider mb-4">Calcula tu ahorro</motion.p>
@@ -659,11 +736,11 @@ export default function LandingPage() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.96 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: '-80px' }}
+                  viewport={{ once: true, margin: '-100px' }}
                   transition={{ duration: 0.5, ease: easeOut }}
                   className="lg:col-span-7"
                 >
-                  <div className="bg-white border border-slate-200 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '10px' }}>
+                  <div className="bg-white border border-slate-200 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '16px' }}>
                     <div className="space-y-8">
                       <div>
                         <div className="flex items-center justify-between mb-3">
@@ -684,9 +761,7 @@ export default function LandingPage() {
                         <p className="text-5xl font-mono font-bold text-signal">
                           {roiHours.toLocaleString('es-ES')} <span className="text-2xl text-slate-400">horas/año</span>
                         </p>
-                        <p className="text-sm text-slate-400 mt-2 font-mono">
-                          ≈ {Math.floor(roiHours / 8).toLocaleString('es-ES')} jornadas laborales completas
-                        </p>
+                        <p className="text-sm text-slate-400 mt-2 font-mono">≈ {Math.floor(roiHours / 8).toLocaleString('es-ES')} jornadas laborales completas</p>
                       </div>
                     </div>
                   </div>
@@ -696,20 +771,20 @@ export default function LandingPage() {
           </section>
 
           {/* ─── FAQ ─── */}
-          <section className="border-b border-slate-200 bg-white">
+          <section className="border-b border-slate-200 bg-slate-50">
             <div className="mx-auto max-w-3xl px-6 py-24 md:py-32">
               <motion.div
                 variants={staggerContainer}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
+                viewport={{ once: true, margin: '-100px' }}
                 className="mb-12 text-center"
               >
                 <motion.p variants={staggerItem} className="text-xs font-mono text-signal uppercase tracking-wider mb-4">FAQ</motion.p>
                 <motion.h2 variants={staggerItem} className="text-3xl md:text-4xl font-display font-semibold tracking-tighter text-slate-900">Preguntas frecuentes</motion.h2>
               </motion.div>
 
-              <div className="space-y-px bg-slate-200">
+              <div className="space-y-px bg-slate-200" style={{ borderRadius: '16px', overflow: 'hidden' }}>
                 {faqs.map((faq, i) => (
                   <div key={i} className="bg-white">
                     <button
@@ -739,23 +814,33 @@ export default function LandingPage() {
             </div>
           </section>
 
-          {/* ─── Final CTA ─── */}
-          <section className="bg-slate-900 relative overflow-hidden">
+          {/* ─── Final CTA — immersive photo background ─── */}
+          <section className="relative overflow-hidden">
+            <div className="absolute inset-0">
+              <img
+                src={CTA_IMAGE}
+                alt="Vista aérea de terminal portuario con buques y contenedores"
+                width={1600}
+                height={900}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-slate-950/85" />
+            </div>
             <div className="pointer-events-none absolute inset-0">
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-signal/15 blur-[120px]" />
-              <div className="absolute top-0 right-0 h-[300px] w-[300px] rounded-full bg-indigo-500/10 blur-[100px]" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[400px] w-[600px] rounded-full bg-indigo-500/15 blur-[120px]" />
             </div>
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: '-80px' }}
+              viewport={{ once: true, margin: '-100px' }}
               className="relative mx-auto max-w-9xl px-6 py-24 md:py-32"
             >
               <motion.h2 variants={staggerItem} className="text-3xl md:text-5xl font-display font-semibold tracking-tighter text-white leading-tight max-w-2xl">
                 Deja de cotizar a mano. Empieza hoy.
               </motion.h2>
-              <motion.p variants={staggerItem} className="mt-6 text-lg text-slate-400 leading-relaxed max-w-2xl">
+              <motion.p variants={staggerItem} className="mt-6 text-lg text-slate-300 leading-relaxed max-w-2xl">
                 14 días gratis. Sin tarjeta. Subes tu tarifario y estás cotizando con IA en menos de 15 minutos.
               </motion.p>
               <motion.div variants={staggerItem} className="mt-8 flex flex-col sm:flex-row gap-3">
@@ -783,34 +868,33 @@ export default function LandingPage() {
   );
 }
 
-/* ─── Hero Mockup — pure code, glassmorphism ─── */
-function HeroMockup() {
+/* ─── Floating Hero Mockup — glassmorphism over photo ─── */
+function FloatingMockup() {
   return (
     <div className="relative">
-      {/* Main card */}
+      {/* Main card — glassmorphism */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.5, ease: easeOut }}
-        className="bg-white/70 backdrop-blur-xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.06)] overflow-hidden"
-        style={{ borderRadius: '12px' }}
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        className="bg-white/70 backdrop-blur-xl border border-white/30 shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden"
+        style={{ borderRadius: '20px' }}
       >
         {/* Browser top bar */}
-        <div className="flex items-center gap-2 border-b border-slate-200/60 px-4 py-3 bg-white/50">
+        <div className="flex items-center gap-2 border-b border-white/20 px-4 py-3 bg-white/30">
           <div className="flex gap-1.5">
             <div className="h-2.5 w-2.5 rounded-full bg-slate-300" />
             <div className="h-2.5 w-2.5 rounded-full bg-slate-300" />
             <div className="h-2.5 w-2.5 rounded-full bg-slate-300" />
           </div>
-          <span className="text-xs font-mono text-slate-400 ml-2">logiquote.app/cotizador</span>
+          <span className="text-xs font-mono text-slate-500 ml-2">logiquote.app/cotizador</span>
         </div>
 
         {/* Content */}
         <div className="p-6">
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center bg-signal/10 rounded-md">
-                <Ship className="h-3.5 w-3.5 text-signal" />
+              <div className="flex h-7 w-7 items-center justify-center bg-indigo-50 rounded-md">
+                <Ship className="h-3.5 w-3.5 text-indigo-600" />
               </div>
               <span className="text-sm font-semibold text-slate-900">Cotización LQ-284901</span>
             </div>
@@ -820,27 +904,25 @@ function HeroMockup() {
             </span>
           </div>
 
-          {/* Route inputs */}
           <div className="grid grid-cols-2 gap-3 mb-5">
-            <div className="border border-slate-200 rounded-lg p-3 bg-white/60">
+            <div className="border border-slate-200/80 rounded-lg p-3 bg-white/50">
               <p className="text-[10px] font-mono text-slate-400 mb-1">ORIGEN</p>
               <p className="text-sm font-mono font-semibold text-slate-900">Shanghai</p>
             </div>
-            <div className="border border-slate-200 rounded-lg p-3 bg-white/60">
+            <div className="border border-slate-200/80 rounded-lg p-3 bg-white/50">
               <p className="text-[10px] font-mono text-slate-400 mb-1">DESTINO</p>
               <p className="text-sm font-mono font-semibold text-slate-900">Valencia</p>
             </div>
-            <div className="border border-slate-200 rounded-lg p-3 bg-white/60">
+            <div className="border border-slate-200/80 rounded-lg p-3 bg-white/50">
               <p className="text-[10px] font-mono text-slate-400 mb-1">INCOTERM</p>
               <p className="text-sm font-mono font-semibold text-slate-900">FOB</p>
             </div>
-            <div className="border border-slate-200 rounded-lg p-3 bg-white/60">
+            <div className="border border-slate-200/80 rounded-lg p-3 bg-white/50">
               <p className="text-[10px] font-mono text-slate-400 mb-1">VOLUMEN</p>
               <p className="text-sm font-mono font-semibold text-slate-900">3,8 CBM</p>
             </div>
           </div>
 
-          {/* Cost breakdown */}
           <div className="space-y-2.5 font-mono text-sm border-t border-slate-200 pt-4">
             <div className="flex justify-between"><span className="text-slate-400">Flete LCL</span><span className="text-slate-700">1.710€</span></div>
             <div className="flex justify-between"><span className="text-slate-400">THC + BAF + ISPS</span><span className="text-slate-700">152€</span></div>
@@ -854,17 +936,16 @@ function HeroMockup() {
         </div>
       </motion.div>
 
-      {/* Floating lead notification — staggered entrance */}
+      {/* Floating lead notification — different float timing */}
       <motion.div
-        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.9, ease: easeOut }}
-        className="absolute -bottom-4 -left-4 bg-white/80 backdrop-blur-xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-4"
-        style={{ borderRadius: '10px' }}
+        animate={{ y: [0, -14, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+        className="absolute -bottom-5 -left-5 bg-white/80 backdrop-blur-xl border border-white/30 shadow-[0_8px_30px_rgb(0,0,0,0.15)] p-4"
+        style={{ borderRadius: '14px' }}
       >
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center bg-signal/10 rounded-lg">
-            <Users className="h-4 w-4 text-signal" />
+          <div className="flex h-8 w-8 items-center justify-center bg-indigo-50 rounded-lg">
+            <Users className="h-4 w-4 text-indigo-600" />
           </div>
           <div>
             <p className="text-xs font-semibold text-slate-900">Nuevo lead capturado</p>
@@ -873,13 +954,12 @@ function HeroMockup() {
         </div>
       </motion.div>
 
-      {/* Floating AI badge */}
+      {/* Floating AI badge — different float timing */}
       <motion.div
-        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5, delay: 1.1, ease: easeOut }}
-        className="absolute -top-3 -right-3 bg-signal text-white px-3 py-1.5 shadow-[0_4px_16px_rgb(79_70_229_0.3)]"
-        style={{ borderRadius: '8px' }}
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        className="absolute -top-3 -right-3 bg-signal text-white px-3 py-1.5 shadow-[0_4px_16px_rgb(79_70_229_0.4)]"
+        style={{ borderRadius: '10px' }}
       >
         <span className="flex items-center gap-1.5 text-xs font-semibold">
           <Sparkles className="h-3 w-3" />
@@ -890,79 +970,15 @@ function HeroMockup() {
   );
 }
 
-/* ─── Problem Visual — pure code, no stock photo ─── */
-function ProblemVisual() {
-  return (
-    <div className="bg-slate-900 p-1.5" style={{ borderRadius: '10px' }}>
-      <div className="bg-slate-950 p-5 font-mono text-sm leading-relaxed overflow-x-auto scrollbar-thin" style={{ borderRadius: '8px' }}>
-        <div className="flex items-center gap-2 mb-4 text-slate-500 text-xs">
-          <div className="flex gap-1.5">
-            <div className="h-2.5 w-2.5 rounded-full bg-slate-700" />
-            <div className="h-2.5 w-2.5 rounded-full bg-slate-700" />
-            <div className="h-2.5 w-2.5 rounded-full bg-slate-700" />
-          </div>
-          <span className="ml-2">cotizacion_manual.xlsx</span>
-        </div>
-        <div className="text-slate-300 whitespace-pre">{`A          B         C        D       E
-1  Origen    Destino  Flete   Arancel Margen
-2  Shanghai  Valencia ???      ???     ???
-3  Rotterdam Barcelona ???      ???     ???
-4  Nueva York Bilbao  ???      ???     ???
-
-# ¿Flete LCL o FCL?
-# ¿Incluye THC + BAF?
-# ¿Margen FOB o CIF?
-# ¿Quién calcula el arancel?
-# → 42 minutos después...`}</div>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Step 2 Mockup — pure code ─── */
-function Step2Mockup() {
-  return (
-    <div className="bg-white/70 backdrop-blur-xl border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6" style={{ borderRadius: '10px' }}>
-      <div className="flex items-center gap-2 mb-5">
-        <div className="flex h-7 w-7 items-center justify-center bg-signal/10 rounded-md">
-          <Sparkles className="h-3.5 w-3.5 text-signal" />
-        </div>
-        <span className="text-sm font-semibold text-slate-900">IA generando cotización...</span>
-      </div>
-
-      <div className="space-y-3">
-        {[
-          { label: 'Leyendo tarifario base', done: true },
-          { label: 'Calculando flete LCL (3,8 CBM)', done: true },
-          { label: 'Aplicando recargos portuarios', done: true },
-          { label: 'Calculando margen FOB (+15%)', done: false },
-        ].map((step, i) => (
-          <div key={i} className="flex items-center gap-3">
-            <div className={`flex h-5 w-5 items-center justify-center rounded-md ${step.done ? 'bg-emerald-50' : 'bg-slate-100'}`}>
-              {step.done ? <Check className="h-3 w-3 text-emerald-600" /> : <Clock className="h-3 w-3 text-slate-400" />}
-            </div>
-            <span className={`text-sm font-mono ${step.done ? 'text-slate-700' : 'text-slate-400'}`}>{step.label}</span>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-5 pt-4 border-t border-slate-200 flex items-center justify-between">
-        <span className="text-sm text-slate-400 font-mono">Tiempo total</span>
-        <span className="text-2xl font-mono font-bold text-signal">45s</span>
-      </div>
-    </div>
-  );
-}
-
-/* ─── Product Visual — pure code mockups ─── */
+/* ─── Product Visual — pure code mockups with glassmorphism ─── */
 function ProductVisual({ index }: { index: number }) {
   if (index === 0) {
     return (
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ duration: 0.3, ease: easeOut }}
-        className="bg-white/70 backdrop-blur-xl border border-slate-200/60 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
-        style={{ borderRadius: '10px' }}
+        className="bg-white/70 backdrop-blur-xl border border-slate-200/80 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+        style={{ borderRadius: '16px' }}
       >
         <div className="grid grid-cols-2 gap-4 mb-6">
           <div>
@@ -994,8 +1010,8 @@ function ProductVisual({ index }: { index: number }) {
   }
   if (index === 1) {
     return (
-      <div className="bg-slate-900 p-1.5" style={{ borderRadius: '10px' }}>
-        <div className="bg-slate-950 p-5 font-mono text-sm overflow-x-auto scrollbar-thin" style={{ borderRadius: '8px' }}>
+      <div className="bg-slate-900 p-1.5" style={{ borderRadius: '16px' }}>
+        <div className="bg-slate-950 p-5 font-mono text-sm overflow-x-auto scrollbar-thin" style={{ borderRadius: '14px' }}>
           <div className="text-slate-500 mb-2">tarifario_base.md — editando</div>
           <pre className="text-slate-300 whitespace-pre leading-relaxed">{`## Costes FCL
 20' — 1.850€/contenedor
@@ -1018,8 +1034,8 @@ CIF: +12% · DDP: +8%`}</pre>
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ duration: 0.3, ease: easeOut }}
-        className="bg-white/70 backdrop-blur-xl border border-slate-200/60 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
-        style={{ borderRadius: '10px' }}
+        className="bg-white/70 backdrop-blur-xl border border-slate-200/80 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+        style={{ borderRadius: '16px' }}
       >
         <p className="text-xs font-mono text-slate-400 mb-2">Tu enlace público</p>
         <div className="flex items-center gap-3 border border-slate-200 px-4 py-3 mb-4 bg-white/50" style={{ borderRadius: '6px' }}>
@@ -1042,8 +1058,8 @@ CIF: +12% · DDP: +8%`}</pre>
     <motion.div
       whileHover={{ y: -4 }}
       transition={{ duration: 0.3, ease: easeOut }}
-      className="bg-white/70 backdrop-blur-xl border border-slate-200/60 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
-      style={{ borderRadius: '10px' }}
+      className="bg-white/70 backdrop-blur-xl border border-slate-200/80 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+      style={{ borderRadius: '16px' }}
     >
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="border border-slate-200 p-4 bg-white/50" style={{ borderRadius: '6px' }}>
@@ -1091,7 +1107,7 @@ function LiveCalculator({ onCta }: { onCta: () => void }) {
   };
 
   return (
-    <div className="bg-white text-slate-900 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)]" style={{ borderRadius: '10px' }}>
+    <div className="bg-white text-slate-900 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)]" style={{ borderRadius: '16px' }}>
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div>
           <label className="label-field">Origen</label>
