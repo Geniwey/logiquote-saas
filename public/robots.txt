@@ -2,6 +2,5 @@ User-agent: *
 Allow: /
 Disallow: /dashboard
 Disallow: /cotizador/demo
-Disallow: /login
 
 Sitemap: https://logiquote.app/sitemap.xml

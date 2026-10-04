@@ -6,7 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { useToast } from '@/components/Toast';
-import { siteConfig } from '@/lib/content';
+import { supabase } from '@/lib/supabase';
 import { easeOut, staggerContainer, staggerItem, scaleIn } from '@/lib/animations';
 
 export default function Demo() {
@@ -24,10 +24,21 @@ export default function Demo() {
       return;
     }
     setSending(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setSending(false);
-    setSent(true);
-    showToast('Solicitud enviada. Te contactaremos en menos de 24h.', 'success');
+    try {
+      const { error } = await supabase.from('leads').insert({
+        source: 'demo',
+        name: name.trim(),
+        email: email.trim(),
+        company: company.trim(),
+      });
+      if (error) throw error;
+      setSent(true);
+      showToast('Solicitud enviada. Te contactaremos en menos de 24h.', 'success');
+    } catch {
+      showToast('Error al enviar. Inténtalo de nuevo.', 'error');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -71,11 +82,6 @@ export default function Demo() {
                         <span className="text-sm text-ink-muted">{item}</span>
                       </div>
                     ))}
-                  </motion.div>
-
-                  <motion.div variants={staggerItem} className="mt-10 pt-8 border-t border-line">
-                    <p className="text-sm text-ink-muted">¿Prefieres escribir?</p>
-                    <a href={`mailto:${siteConfig.email}`} className="text-signal font-mono text-sm link-underline">{siteConfig.email}</a>
                   </motion.div>
                 </motion.div>
 

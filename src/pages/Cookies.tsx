@@ -39,7 +39,7 @@ export default function Cookies() {
 
       <LegalSection title="5. Más información">
         <p>
-          Para cualquier consulta sobre el uso de cookies, contacta con nosotros en soporte@logiquote.app.
+          Para cualquier consulta sobre el uso de cookies, contacta con nosotros en hola@logiquote.app.
         </p>
       </LegalSection>
     </LegalLayout>

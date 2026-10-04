@@ -8,8 +8,7 @@ export default function Privacidad() {
     >
       <LegalSection title="1. Responsable del tratamiento">
         <p>
-          El responsable del tratamiento de los datos personales es LogiQuote SL, con CIF B-12345678,
-          domiciliada en Calle Principal 123, 28001, Madrid. Contacto: contacto@logiquote.app.
+          El responsable del tratamiento de los datos personales es LogiQuote SL, con domicilio en Madrid, España. Contacto: hola@logiquote.app.
         </p>
       </LegalSection>
 
@@ -60,7 +59,7 @@ export default function Privacidad() {
         <p>
           El usuario tiene derecho a acceder a sus datos, rectificarlos, suprimirlos, limitar su
           tratamiento, oponerse al mismo y solicitar la portabilidad. Para ejercer estos derechos
-          puede dirigirse a contacto@logiquote.app.
+          puede dirigirse a hola@logiquote.app.
         </p>
       </LegalSection>
 

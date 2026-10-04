@@ -1,17 +1,19 @@
 import { useState, type FormEvent } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
+import { Mail, MapPin, Send, Loader2 } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { useToast } from '@/components/Toast';
 import { siteConfig } from '@/lib/content';
+import { supabase } from '@/lib/supabase';
 import { easeOut, staggerContainer, staggerItem, scaleIn } from '@/lib/animations';
 
 export default function Contacto() {
   const { showToast } = useToast();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
 
@@ -22,10 +24,22 @@ export default function Contacto() {
       return;
     }
     setSending(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setSending(false);
-    showToast('Mensaje enviado. Te responderemos en breve.', 'success');
-    setName(''); setEmail(''); setMessage('');
+    try {
+      const { error } = await supabase.from('leads').insert({
+        source: 'contact',
+        name: name.trim(),
+        email: email.trim(),
+        company: company.trim() || null,
+        message: message.trim(),
+      });
+      if (error) throw error;
+      showToast('Mensaje enviado. Te responderemos en breve.', 'success');
+      setName(''); setEmail(''); setCompany(''); setMessage('');
+    } catch {
+      showToast('Error al enviar. Inténtalo de nuevo.', 'error');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -67,15 +81,6 @@ export default function Contacto() {
                         <p className="text-sm text-ink-muted group-hover:text-signal transition-colors">{siteConfig.email}</p>
                       </div>
                     </a>
-                    <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-4 group transition-transform duration-200 hover:translate-x-1">
-                      <div className="flex h-10 w-10 items-center justify-center border border-line bg-white shadow-[0_4px_12px_rgb(0,0,0,0.03)]" style={{ borderRadius: '6px' }}>
-                        <Phone className="h-4 w-4 text-signal" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-ink">Teléfono</p>
-                        <p className="text-sm text-ink-muted group-hover:text-signal transition-colors">{siteConfig.phone}</p>
-                      </div>
-                    </a>
                     <div className="flex items-center gap-4">
                       <div className="flex h-10 w-10 items-center justify-center border border-line bg-white shadow-[0_4px_12px_rgb(0,0,0,0.03)]" style={{ borderRadius: '6px' }}>
                         <MapPin className="h-4 w-4 text-signal" />
@@ -104,6 +109,10 @@ export default function Contacto() {
                       <div>
                         <label className="label-field">Email</label>
                         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="tu@empresa.com" className="input-field" />
+                      </div>
+                      <div>
+                        <label className="label-field">Empresa (opcional)</label>
+                        <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Tu empresa" className="input-field" />
                       </div>
                       <div>
                         <label className="label-field">Mensaje</label>

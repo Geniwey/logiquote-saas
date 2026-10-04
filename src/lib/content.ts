@@ -1,13 +1,13 @@
 export const siteConfig = {
   name: 'LogiQuote',
   domain: 'logiquote.app',
-  email: 'soporte@logiquote.app',
+  email: 'hola@logiquote.app',
   salesEmail: 'ventas@logiquote.app',
-  phone: '+34 910 000 000',
+  phone: '',
   company: {
     legalName: 'LogiQuote Logistics Software S.L.',
-    cif: 'B-12345678',
-    address: 'Calle de Alcalá 95, 28009 Madrid, España',
+    cif: '',
+    address: 'Madrid, España',
   },
   social: {
     linkedin: 'https://linkedin.com/company/logiquote',
@@ -24,6 +24,7 @@ export const navLinks = [
 
 export const plans = [
   {
+    id: 'starter',
     name: 'Starter',
     priceMonthly: 29,
     priceAnnual: 23,
@@ -39,6 +40,7 @@ export const plans = [
     cta: 'Empezar gratis 14 días',
   },
   {
+    id: 'pro',
     name: 'Pro',
     priceMonthly: 49,
     priceAnnual: 39,
@@ -56,6 +58,7 @@ export const plans = [
     cta: 'Probar Pro gratis 14 días',
   },
   {
+    id: 'business',
     name: 'Business',
     priceMonthly: 99,
     priceAnnual: 79,

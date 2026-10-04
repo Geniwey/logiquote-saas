@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
 import { plans } from '@/lib/content';
+import { useAuth } from '@/lib/auth';
+import { useToast } from '@/components/Toast';
 import { easeOut, staggerContainer, staggerItem } from '@/lib/animations';
 
 const comparisonRows = [
@@ -32,6 +34,23 @@ function Cell({ value }: { value: string | boolean }) {
 
 export default function Precios() {
   const [annual, setAnnual] = useState(false);
+  const { session } = useAuth();
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+
+  const handleCheckout = (planId: string, planName: string) => {
+    if (planName === 'Business') {
+      navigate('/contacto');
+      return;
+    }
+    if (!session) {
+      navigate('/login');
+      return;
+    }
+    // TODO: Insertar link de Stripe Checkout aquí
+    // window.location.href = `https://checkout.stripe.com/...`;
+    showToast('Pasarela de pago próximamente disponible.', 'info');
+  };
 
   return (
     <>
@@ -110,9 +129,15 @@ export default function Precios() {
                       <span className="text-4xl font-mono font-bold text-ink">{annual ? plan.priceAnnual : plan.priceMonthly}</span>
                       <span className="text-ink-muted">€/mes</span>
                     </div>
-                    <Link to={plan.name === 'Business' ? '/contacto' : '/login'} className={`w-full ${plan.highlighted ? 'btn-primary' : 'btn-secondary'} justify-center`}>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      transition={{ duration: 0.2, ease: easeOut }}
+                      onClick={() => handleCheckout(plan.id, plan.name)}
+                      className={`w-full ${plan.highlighted ? 'btn-primary' : 'btn-secondary'} justify-center`}
+                    >
                       {plan.cta}
-                    </Link>
+                    </motion.button>
                     <ul className="mt-8 space-y-3">
                       {plan.features.map((feat) => (
                         <li key={feat} className="flex items-start gap-3 text-sm text-ink-light">

@@ -60,10 +60,12 @@ export function Footer() {
                 <Mail className="h-4 w-4" />
                 {siteConfig.email}
               </a>
-              <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-slate-400 transition-colors duration-200 hover:text-signal-light">
-                <Phone className="h-4 w-4" />
-                {siteConfig.phone}
-              </a>
+              {siteConfig.phone && (
+                <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-slate-400 transition-colors duration-200 hover:text-signal-light">
+                  <Phone className="h-4 w-4" />
+                  {siteConfig.phone}
+                </a>
+              )}
               <p className="flex items-start gap-2 text-slate-500 text-xs leading-relaxed">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 {siteConfig.company.address}
@@ -91,7 +93,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <p className="text-xs text-slate-500 font-mono">
-            © 2026 {siteConfig.company.legalName} · CIF {siteConfig.company.cif}
+            © 2026 {siteConfig.company.legalName}{siteConfig.company.cif ? ` · CIF ${siteConfig.company.cif}` : ''}
           </p>
           <div className="flex items-center gap-4 text-xs text-slate-500">
             <span>Pagos seguros con Stripe</span>

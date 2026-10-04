@@ -29,13 +29,13 @@ export default function Terminos() {
 
       <LegalSection title="3. Suscripción y facturación">
         <p>
-          El servicio se ofrece bajo un modelo de suscripción mensual de 49€ (Plan Pro). El pago se
-          realiza a través de la pasarela Stripe. La suscripción se renueva automáticamente cada
-          mes hasta que el usuario la cancela.
+          El servicio se ofrece bajo un modelo de suscripción mensual con tres planes: Starter (29€),
+          Pro (49€) y Business (99€). El pago se realiza a través de la pasarela Stripe. La
+          suscripción se renueva automáticamente cada mes hasta que el usuario la cancela.
         </p>
         <p>
           El usuario puede cancelar la suscripción en cualquier momento desde su panel de control o
-          contactando con soporte. La cancelación surtirá efecto al final del periodo de
+          contactando con nosotros. La cancelación surtirá efecto al final del periodo de
           facturación en curso.
         </p>
       </LegalSection>

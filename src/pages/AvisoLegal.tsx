@@ -10,13 +10,10 @@ export default function AvisoLegal() {
         <p>
           De conformidad con lo establecido en la Ley 34/2002, de 11 de julio, de servicios de la
           sociedad de la información y de comercio electrónico (LSSI-CE), se informa que el titular
-          del presente sitio web es LogiQuote SL (en adelante, "LogiQuote"), con CIF B-12345678,
-          domiciliada en Calle Principal 123, 28001, Madrid, España, inscrita en el Registro
-          Mercantil de Madrid, Tomo 1234, Folio 56, Sección 8, Hoja M-12345.
+          del presente sitio web es LogiQuote SL (en adelante, "LogiQuote"), con domicilio en Madrid, España.
         </p>
         <p>
-          Puede contactar con LogiQuote a través del correo electrónico contacto@logiquote.app o del
-          teléfono +34 910 000 000.
+          Puede contactar con LogiQuote a través del correo electrónico hola@logiquote.app.
         </p>
       </LegalSection>
 
