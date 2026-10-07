@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Send, Loader2, Calendar, ArrowRight, Check } from 'lucide-react';
+import { Send, Loader2, ArrowRight, Check } from 'lucide-react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
@@ -51,19 +51,19 @@ export default function Demo() {
       <div className="min-h-screen bg-bone">
         <Navbar />
         <main>
-          <section className="border-b border-line relative overflow-hidden">
+          <section className="border-b border-line-light relative overflow-hidden" aria-label="Solicitar demo guiada">
             <div className="pointer-events-none absolute inset-0">
-              <div className="absolute -top-40 right-0 h-[500px] w-[500px] rounded-full bg-signal/5 blur-[120px]" />
+              <div className="absolute -top-40 right-0 h-[500px] w-[500px] rounded-full bg-signal/[0.05] blur-[120px]" />
             </div>
-            <div className="relative mx-auto max-w-9xl px-6 py-24 md:py-32">
-              <div className="grid lg:grid-cols-12 gap-16">
+            <div className="relative mx-auto max-w-9xl px-6 py-32">
+              <div className="grid lg:grid-cols-12 gap-20">
                 <motion.div
                   variants={staggerContainer}
                   initial="hidden"
                   animate="visible"
                   className="lg:col-span-5"
                 >
-                  <motion.p variants={staggerItem} className="text-xs font-mono text-signal uppercase tracking-wider mb-4">Demo guiada</motion.p>
+                  <motion.p variants={staggerItem} className="eyebrow mb-4">Demo guiada</motion.p>
                   <motion.h1 variants={staggerItem} className="text-4xl md:text-5xl font-display font-bold tracking-tighter text-ink leading-tight">20 minutos con un especialista en tarifas.</motion.h1>
                   <motion.p variants={staggerItem} className="mt-6 text-lg text-ink-muted leading-relaxed">
                     Reservamos una sesión contigo, vemos tu caso real y te mostramos cómo LogiQuote se adapta a tu flujo de trabajo.
@@ -91,7 +91,7 @@ export default function Demo() {
                   animate="visible"
                   className="lg:col-span-6 lg:col-start-7"
                 >
-                  <div className="bg-white/80 backdrop-blur-xl border border-line/60 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '8px' }}>
+                  <div className="bg-white/70  border border-line-light p-8 " style={{ borderRadius: '16px' }}>
                     {sent ? (
                       <motion.div
                         initial={{ opacity: 0, scale: 0.96 }}
@@ -99,8 +99,8 @@ export default function Demo() {
                         transition={{ duration: 0.4, ease: easeOut }}
                         className="text-center py-12"
                       >
-                        <div className="flex h-14 w-14 mx-auto items-center justify-center border border-success bg-success-bg mb-6" style={{ borderRadius: '8px' }}>
-                          <Check className="h-6 w-6 text-success" />
+                        <div className="flex h-14 w-14 mx-auto items-center justify-center border border-success bg-success/10 mb-6" style={{ borderRadius: '12px' }}>
+                          <Check className="h-6 w-6 text-success" aria-hidden="true" />
                         </div>
                         <h2 className="text-xl font-display font-semibold tracking-tight text-ink mb-2">Solicitud recibida</h2>
                         <p className="text-sm text-ink-muted mb-6">Te contactaremos en menos de 24 horas para agendar la sesión.</p>
@@ -126,16 +126,17 @@ export default function Demo() {
                           <motion.button
                             type="submit"
                             whileHover={{ scale: 1.01 }}
-                            whileTap={{ scale: 0.99 }}
+                            whileTap={{ scale: 0.97 }}
                             transition={{ duration: 0.2, ease: easeOut }}
                             disabled={sending}
+                            aria-label="Solicitar demo guiada"
                             className="btn-primary w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed"
                           >
-                            {sending ? <><Loader2 className="h-4 w-4 animate-spin" /> Enviando...</> : <><Send className="h-4 w-4" /> Solicitar demo <ArrowRight className="h-3.5 w-3.5" /></>}
+                            {sending ? <><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Enviando...</> : <><Send className="h-4 w-4" aria-hidden="true" /> Solicitar demo</>}
                           </motion.button>
                         </form>
                         <div className="mt-6 flex items-center justify-center gap-2 text-xs text-ink-muted font-mono">
-                          <Calendar className="h-3.5 w-3.5" /> Sesión de 20 min · Por videollamada · Sin compromiso
+                          Sesión de 20 min · Por videollamada · Sin compromiso
                         </div>
                       </>
                     )}

@@ -52,12 +52,12 @@ export default function Contacto() {
       <div className="min-h-screen bg-bone">
         <Navbar />
         <main>
-          <section className="border-b border-line relative overflow-hidden">
+          <section className="border-b border-line relative overflow-hidden" aria-label="Contacto">
             <div className="pointer-events-none absolute inset-0">
-              <div className="absolute -top-40 left-0 h-[500px] w-[500px] rounded-full bg-signal/5 blur-[120px]" />
+              <div className="absolute -top-40 left-0 h-[500px] w-[500px] rounded-full bg-signal/[0.05] blur-[120px]" />
             </div>
-            <div className="relative mx-auto max-w-9xl px-6 py-24 md:py-32">
-              <div className="grid lg:grid-cols-12 gap-16">
+            <div className="relative mx-auto max-w-9xl px-6 py-32">
+              <div className="grid lg:grid-cols-12 gap-20">
                 <motion.div
                   variants={staggerContainer}
                   initial="hidden"
@@ -72,21 +72,21 @@ export default function Contacto() {
                   </motion.p>
 
                   <motion.div variants={staggerItem} className="mt-10 space-y-5">
-                    <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-4 group transition-transform duration-200 hover:translate-x-1">
-                      <div className="flex h-10 w-10 items-center justify-center border border-line bg-white shadow-[0_4px_12px_rgb(0,0,0,0.03)]" style={{ borderRadius: '6px' }}>
-                        <Mail className="h-4 w-4 text-signal" />
+                    <a href={`mailto:${siteConfig.email}`} className="group flex items-start gap-4 transition-transform duration-200 hover:translate-x-1">
+                      <div className="h-10 w-10 flex items-center justify-center border border-line bg-white shadow-sm rounded-md flex-shrink-0">
+                        <Mail className="h-5 w-5 text-signal" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-ink">Email</p>
+                        <p className="text-xs font-mono text-ink-muted uppercase tracking-wider mb-1">Email</p>
                         <p className="text-sm text-ink-muted group-hover:text-signal transition-colors">{siteConfig.email}</p>
                       </div>
                     </a>
-                    <div className="flex items-center gap-4">
-                      <div className="flex h-10 w-10 items-center justify-center border border-line bg-white shadow-[0_4px_12px_rgb(0,0,0,0.03)]" style={{ borderRadius: '6px' }}>
-                        <MapPin className="h-4 w-4 text-signal" />
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 flex items-center justify-center border border-line bg-white shadow-sm rounded-md flex-shrink-0">
+                        <MapPin className="h-5 w-5 text-signal" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-ink">Oficina</p>
+                        <p className="text-xs font-mono text-ink-muted uppercase tracking-wider mb-1">Oficina</p>
                         <p className="text-sm text-ink-muted">{siteConfig.company.address}</p>
                       </div>
                     </div>
@@ -99,7 +99,7 @@ export default function Contacto() {
                   animate="visible"
                   className="lg:col-span-6 lg:col-start-7"
                 >
-                  <div className="bg-white/80 backdrop-blur-xl border border-line/60 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '8px' }}>
+                  <div className="bg-white/70  border border-line p-8 " style={{ borderRadius: '16px' }}>
                     <h2 className="text-xl font-display font-semibold tracking-tight text-ink mb-6">Envíanos un mensaje</h2>
                     <form onSubmit={handleSubmit} className="space-y-5">
                       <div>
@@ -121,12 +121,13 @@ export default function Contacto() {
                       <motion.button
                         type="submit"
                         whileHover={{ scale: 1.01 }}
-                        whileTap={{ scale: 0.99 }}
+                        whileTap={{ scale: 0.97 }}
                         transition={{ duration: 0.2, ease: easeOut }}
                         disabled={sending}
+                        aria-label="Enviar mensaje de contacto"
                         className="btn-primary w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed"
                       >
-                        {sending ? <><Loader2 className="h-4 w-4 animate-spin" /> Enviando...</> : <><Send className="h-4 w-4" /> Enviar mensaje</>}
+                        {sending ? <><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Enviando...</> : <><Send className="h-4 w-4" aria-hidden="true" /> Enviar mensaje</>}
                       </motion.button>
                     </form>
                   </div>

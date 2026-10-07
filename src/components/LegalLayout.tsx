@@ -23,7 +23,7 @@ export function LegalLayout({ title, description, children }: LegalLayoutProps) 
         <main className="flex-1 mx-auto w-full max-w-3xl px-6 py-16 md:py-24">
           <h1 className="text-3xl md:text-4xl font-display font-bold text-ink">{title}</h1>
           <p className="mt-2 text-sm text-ink-muted font-mono">Última actualización: enero 2026</p>
-          <div className="mt-12 space-y-8 text-ink-light leading-relaxed">
+          <div className="mt-12 space-y-8 text-ink-muted leading-relaxed">
             {children}
           </div>
         </main>

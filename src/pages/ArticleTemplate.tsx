@@ -222,11 +222,11 @@ export default function ArticleTemplate() {
               </motion.div>
 
               {/* TOC */}
-              <motion.div variants={staggerItem} className="border border-line bg-white/80 backdrop-blur-xl p-6 mb-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '8px' }}>
+              <motion.div variants={staggerItem} className="border border-line bg-white/70  p-6 mb-12 inset-highlight" style={{ borderRadius: '16px' }}>
                 <p className="text-xs font-mono text-ink-muted uppercase tracking-wider mb-3">Índice</p>
                 <ol className="space-y-2">
                   {content.toc.map((item, i) => (
-                    <li key={i} className="text-sm text-ink-light flex items-baseline gap-3">
+                    <li key={i} className="text-sm text-ink-muted flex items-baseline gap-3">
                       <span className="font-mono text-ink-muted text-xs">{String(i + 1).padStart(2, '0')}</span>
                       {item}
                     </li>
@@ -245,7 +245,7 @@ export default function ArticleTemplate() {
             >
               {content.body.map((section, i) => (
                 <motion.section key={i} variants={staggerItem}>
-                  <h2 className="text-2xl font-display font-semibold tracking-tight text-ink mb-4">{section.h2}</h2>
+                  <h2 className="text-2xl font-display font-semibold tracking-tighter text-ink mb-4">{section.h2}</h2>
                   <div className="space-y-4">
                     {section.paragraphs.map((p, j) => (
                       <p key={j} className="text-ink-muted leading-relaxed">{p}</p>
@@ -263,14 +263,14 @@ export default function ArticleTemplate() {
               viewport={{ once: true, margin: '-80px' }}
               className="mt-16 border-t border-line pt-12"
             >
-              <div className="bg-navy relative overflow-hidden p-8 shadow-[0_8px_30px_rgb(0,0,0,0.08)]" style={{ borderRadius: '8px' }}>
+              <div className="bg-white relative overflow-hidden p-8 inset-highlight" style={{ borderRadius: '16px' }}>
                 <div className="pointer-events-none absolute inset-0">
                   <div className="absolute bottom-0 right-0 h-[300px] w-[300px] rounded-full bg-signal/10 blur-[100px]" />
                 </div>
                 <div className="relative">
-                  <h2 className="text-xl font-display font-semibold tracking-tight text-white mb-3">¿Quieres cotizar con tu propio tarifario?</h2>
-                  <p className="text-white/50 text-sm mb-6">Crea una cuenta gratis en LogiQuote y sube tu tarifario. La IA generará cotizaciones completas en segundos.</p>
-                  <Link to="/login" className="btn-primary">Probar gratis 14 días <ArrowRight className="h-4 w-4" /></Link>
+                  <h2 className="text-xl font-display font-semibold tracking-tighter text-ink mb-3">¿Quieres cotizar con tu propio tarifario?</h2>
+                  <p className="text-ink-muted text-sm mb-6">Crea una cuenta gratis en LogiQuote y sube tu tarifario. La IA generará cotizaciones completas en segundos.</p>
+                  <Link to="/login" className="btn-primary">Probar gratis 14 días <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
                 </div>
               </div>
             </motion.div>

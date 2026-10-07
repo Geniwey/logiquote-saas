@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
 export function Logo({ size = 'md', variant = 'light' }: { size?: 'sm' | 'md' | 'lg'; variant?: 'light' | 'dark' }) {
-  const textSize = size === 'sm' ? 'text-base' : size === 'lg' ? 'text-2xl' : 'text-lg';
-  const textColor = variant === 'dark' ? 'text-white' : 'text-slate-900';
-  const subColor = variant === 'dark' ? 'text-white/40' : 'text-slate-400';
+  const textSize = size === 'sm' ? 'text-ink' : size === 'lg' ? 'text-2xl' : 'text-lg';
+  const textColor = 'text-ink';
+  const subColor = 'text-ink-muted/70';
 
   return (
     <Link to="/" className="flex items-baseline gap-0.5 group" aria-label="LogiQuote inicio">

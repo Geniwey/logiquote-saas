@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail, Lock, Loader2, ArrowRight, ArrowLeft, ShieldCheck, Zap } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useAuth } from '@/lib/auth';
 import { Logo } from '@/components/Logo';
 import { SEO } from '@/components/SEO';
@@ -39,13 +39,13 @@ export default function LoginPage() {
 
       <div className="min-h-screen bg-bone flex flex-col relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[600px] w-[600px] rounded-full bg-signal/5 blur-[140px]" />
-          <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-navy/5 blur-[100px]" />
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[600px] w-[600px] rounded-full bg-signal/[0.05] blur-[140px]" />
+          <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-white blur-[100px]" />
         </div>
 
         <div className="relative flex items-center justify-between px-6 py-4">
           <Logo />
-          <Link to="/" className="btn-ghost"><ArrowLeft className="h-4 w-4" /> Volver al inicio</Link>
+          <Link to="/" className="btn-ghost"><ArrowLeft className="h-4 w-4" aria-hidden="true" /> Volver al inicio</Link>
         </div>
 
         <div className="relative flex-1 flex items-center justify-center px-4">
@@ -66,50 +66,52 @@ export default function LoginPage() {
 
             <motion.div
               variants={staggerItem}
-              className="bg-white/80 backdrop-blur-xl border border-line/60 p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
-              style={{ borderRadius: '8px' }}
+              className="bg-white/70  border border-line p-8 "
+              style={{ borderRadius: '16px' }}
             >
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label className="label-field">Email</label>
                   <div className="relative">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-muted" />
+                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-muted" aria-hidden="true" />
                     <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="tu@empresa.com" className="input-field pl-11" />
                   </div>
                 </div>
                 <div>
                   <label className="label-field">Contraseña</label>
                   <div className="relative">
-                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-muted" />
+                    <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-muted" aria-hidden="true" />
                     <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Mínimo 6 caracteres" className="input-field pl-11" />
                   </div>
                 </div>
 
-                {error && <div className="border border-error bg-error-bg px-4 py-3 text-sm text-error" style={{ borderRadius: '6px' }}>{error}</div>}
+                {error && <div className="border border-error bg-error/10 px-4 py-3 text-sm text-error" style={{ borderRadius: '6px' }}>{error}</div>}
 
                 <motion.button
                   type="submit"
                   whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
+                  whileTap={{ scale: 0.97 }}
                   transition={{ duration: 0.2, ease: easeOut }}
                   disabled={loading}
+                  aria-label={isSignUp ? 'Crear cuenta' : 'Iniciar sesión'}
                   className="btn-primary w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Procesando...</> : <>{isSignUp ? 'Crear cuenta' : 'Acceder'} <ArrowRight className="h-4 w-4" /></>}
+                  {loading ? <><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Procesando...</> : <>{isSignUp ? 'Crear cuenta' : 'Acceder'} <ArrowRight className="h-4 w-4" aria-hidden="true" /></>}
                 </motion.button>
               </form>
 
               <p className="mt-6 text-center text-sm text-ink-muted">
                 {isSignUp ? '¿Ya tienes cuenta?' : '¿Aún no tienes cuenta?'}{' '}
-                <button onClick={() => { setMode(isSignUp ? 'signin' : 'signup'); setError(null); }} className="font-semibold text-signal transition-colors hover:text-signal-dark">
+                <button onClick={() => { setMode(isSignUp ? 'signin' : 'signup'); setError(null); }} className="font-semibold text-signal transition-colors hover:text-signal-light">
                   {isSignUp ? 'Iniciar sesión' : 'Crear cuenta gratis'}
                 </button>
               </p>
             </motion.div>
 
             <motion.div variants={staggerItem} className="mt-6 flex items-center justify-center gap-6 text-xs text-ink-muted font-mono">
-              <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" /> Datos cifrados</span>
-              <span className="flex items-center gap-1.5"><Zap className="h-3.5 w-3.5" /> Sin permanencia</span>
+              <span>Datos cifrados</span>
+              <span className="text-ink/10">·</span>
+              <span>Sin permanencia</span>
             </motion.div>
           </motion.div>
         </div>

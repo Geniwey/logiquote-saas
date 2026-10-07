@@ -2,8 +2,8 @@ import { useState, useEffect, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Ship, MapPin, Anchor, Package, Loader2, FileDown, ArrowLeft,
-  CheckCircle2, ShieldCheck, Clock, AlertCircle, Container, Calculator,
+  Loader2, FileDown, ArrowLeft,
+  CheckCircle2, AlertCircle,
 } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 import { supabase } from '@/lib/supabase';
@@ -65,10 +65,10 @@ export default function Cotizador() {
     <>
       <SEO title="Cotizador | LogiQuote" description="Calcula cotizaciones logísticas con IA. Introduce origen, destino, Incoterm y volumen." />
       <div className="min-h-screen bg-bone">
-        <header className="border-b border-line bg-white/80 backdrop-blur-xl">
+        <header className="border-b border-line-light bg-white/70 ">
           <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
             <Logo size="sm" />
-            <Link to="/dashboard" className="btn-ghost"><ArrowLeft className="h-4 w-4" /> Volver al panel</Link>
+            <Link to="/dashboard" className="btn-ghost"><ArrowLeft className="h-4 w-4" aria-hidden="true" /> Volver al panel</Link>
           </div>
         </header>
 
@@ -94,8 +94,8 @@ export default function Cotizador() {
                 <motion.form
                   variants={staggerItem}
                   onSubmit={handleSubmit}
-                  className="bg-white border border-line p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
-                  style={{ borderRadius: '8px' }}
+                  className="bg-white/80  border border-line p-8 md:p-10 inset-highlight"
+                  style={{ borderRadius: '16px' }}
                 >
                   <div className="grid gap-6 sm:grid-cols-2">
                     <div>
@@ -117,7 +117,8 @@ export default function Cotizador() {
                             type="button"
                             whileTap={{ scale: 0.96 }}
                             onClick={() => setForm({ ...form, incoterm: term })}
-                            className={`py-2.5 text-sm font-mono font-semibold transition-all duration-200 border ${form.incoterm === term ? 'border-signal bg-signal-bg text-signal' : 'border-line bg-white text-ink-muted hover:border-line-dark hover:text-ink'}`}
+                            aria-label={`Seleccionar Incoterm ${term}`}
+                            className={`py-2.5 text-sm font-mono font-semibold transition-all duration-200 border ${form.incoterm === term ? 'border-signal bg-signal/[0.08] text-signal' : 'border-line-light bg-white text-ink-muted hover:border-line-dark hover:text-ink'}`}
                             style={{ borderRadius: '6px' }}
                           >
                             {term}
@@ -135,16 +136,18 @@ export default function Cotizador() {
                   <motion.button
                     type="submit"
                     whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
+                    whileTap={{ scale: 0.97 }}
                     transition={{ duration: 0.2, ease: easeOut }}
+                    aria-label="Calcular cotizacion"
                     className="btn-primary w-full mt-8 py-4"
                   >
-                    <Calculator className="h-5 w-5" /> Calcular cotización
+                    Calcular cotización
                   </motion.button>
 
                   <div className="mt-6 flex items-center justify-center gap-6 text-xs text-ink-muted font-mono">
-                    <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" /> Tarifas privadas</span>
-                    <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> Respuesta en segundos</span>
+                    <span>Tarifas privadas</span>
+                    <span className="text-ink/10">·</span>
+                    <span>Respuesta en segundos</span>
                   </div>
                 </motion.form>
               </motion.div>
@@ -162,12 +165,12 @@ export default function Cotizador() {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.4, ease: easeOut }}
-                  className="flex h-16 w-16 items-center justify-center border border-line bg-white mb-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
-                  style={{ borderRadius: '8px' }}
+                  className="flex h-16 w-16 items-center justify-center border border-line bg-white mb-8 inset-highlight"
+                  style={{ borderRadius: '16px' }}
                 >
-                  <Loader2 className="h-6 w-6 animate-spin text-signal" />
+                  <Loader2 className="h-6 w-6 animate-spin text-signal" aria-hidden="true" />
                 </motion.div>
-                <h2 className="text-2xl font-display font-bold tracking-tight text-ink">Analizando rutas y tarifas...</h2>
+                <h2 className="text-2xl font-display font-bold tracking-tighter text-ink">Analizando rutas y tarifas...</h2>
                 <p className="mt-3 text-sm text-ink-muted">La IA está consultando tu tarifario y calculando la cotización.</p>
                 <div className="mt-10 w-full max-w-sm flex flex-col gap-2 text-left">
                   <LoadingStep label="Leyendo tarifario desde la base de datos" delay={0} />
@@ -186,12 +189,12 @@ export default function Cotizador() {
                 exit={{ opacity: 0 }}
                 className="flex min-h-[60vh] flex-col items-center justify-center text-center"
               >
-                <div className="flex h-14 w-14 items-center justify-center border border-error bg-error-bg mb-6" style={{ borderRadius: '8px' }}>
-                  <AlertCircle className="h-6 w-6 text-error" />
+                <div className="flex h-14 w-14 items-center justify-center border border-error bg-error/10 mb-6" style={{ borderRadius: '12px' }}>
+                  <AlertCircle className="h-6 w-6 text-error" aria-hidden="true" />
                 </div>
-                <h2 className="text-2xl font-display font-bold tracking-tight text-ink">No se pudo generar la cotización</h2>
+                <h2 className="text-2xl font-display font-bold tracking-tighter text-ink">No se pudo generar la cotización</h2>
                 <p className="mt-3 max-w-md text-sm text-ink-muted">{errorMsg}</p>
-                <button onClick={handleReset} className="btn-secondary mt-8"><ArrowLeft className="h-4 w-4" /> Volver al formulario</button>
+                <button onClick={handleReset} className="btn-secondary mt-8"><ArrowLeft className="h-4 w-4" aria-hidden="true" /> Volver al formulario</button>
               </motion.div>
             )}
 
@@ -203,19 +206,19 @@ export default function Cotizador() {
                 exit={{ opacity: 0 }}
                 className="animate-fade-up"
               >
-                <div className="mb-8 flex items-center gap-4 border border-success bg-success-bg p-5" style={{ borderRadius: '8px' }}>
-                  <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-success" />
+                <div className="mb-8 flex items-center gap-4 border border-success bg-success/10 p-5" style={{ borderRadius: '12px' }}>
+                  <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-success" aria-hidden="true" />
                   <div>
                     <p className="font-semibold text-ink">Cotización generada</p>
                     <p className="text-sm text-ink-muted font-mono">Ref: {quoteRef} · Generada por IA · Válida 15 días</p>
                   </div>
                 </div>
 
-                <div className="bg-white border border-line overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)]" style={{ borderRadius: '8px' }}>
-                  <div className="flex items-start justify-between border-b border-line bg-bone/50 px-10 py-8">
+                <div className="bg-white border border-line overflow-hidden inset-highlight" style={{ borderRadius: '16px' }}>
+                  <div className="flex items-start justify-between border-b border-line bg-bone-200/50 px-10 py-8">
                     <div>
                       <p className="text-xs font-mono text-ink-muted uppercase tracking-wider mb-2">Cotización de importación</p>
-                      <h2 className="text-2xl font-display font-bold tracking-tight text-ink">Tu Empresa SL</h2>
+                      <h2 className="text-2xl font-display font-bold tracking-tighter text-ink">Tu Empresa SL</h2>
                       <p className="text-sm text-ink-muted">Transitaria Internacional</p>
                     </div>
                     <div className="text-right">
@@ -226,31 +229,26 @@ export default function Cotizador() {
                     </div>
                   </div>
 
-                  <div className="border-b border-line bg-bone/30 px-10 py-8">
+                  <div className="border-b border-line bg-bone-200/30 px-10 py-8">
                     <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-                      <RouteInfo icon={MapPin} label="Origen" value={form.origin} />
-                      <RouteInfo icon={Anchor} label="Destino" value={form.destination} />
-                      <RouteInfo icon={Ship} label="Incoterm" value={form.incoterm} />
-                      <RouteInfo icon={Package} label="Volumen" value={`${form.volume} CBM`} />
+                      <RouteInfo label="Origen" value={form.origin} />
+                      <RouteInfo label="Destino" value={form.destination} />
+                      <RouteInfo label="Incoterm" value={form.incoterm} />
+                      <RouteInfo label="Volumen" value={`${form.volume} CBM`} />
                     </div>
-                    <div className="mt-6 flex items-center gap-3 border border-line bg-white px-5 py-4" style={{ borderRadius: '6px' }}>
-                      <MapPin className="h-4 w-4 flex-shrink-0 text-signal" />
+                    <div className="mt-6 flex items-center gap-3 border border-line bg-bone-200 px-5 py-4" style={{ borderRadius: '6px' }}>
                       <span className="text-sm font-mono font-medium text-ink">{form.origin}</span>
-                      <div className="flex flex-1 items-center gap-1.5 px-3"><div className="h-px flex-1 bg-line" /><Container className="h-4 w-4 text-ink-muted" /><div className="h-px flex-1 bg-line" /></div>
-                      <Anchor className="h-4 w-4 flex-shrink-0 text-signal" />
+                      <div className="flex flex-1 items-center gap-1.5 px-3"><div className="h-px flex-1 bg-bone-200" /><div className="h-px flex-1 bg-bone-200" /></div>
                       <span className="text-sm font-mono font-medium text-ink">{form.destination}</span>
                     </div>
                   </div>
 
                   <div className="px-10 py-8">
-                    <div className="mb-5 flex items-center gap-2">
-                      <Calculator className="h-4 w-4 text-signal" />
-                      <h3 className="text-xs font-mono text-ink-muted uppercase tracking-wider">Presupuesto generado por IA</h3>
-                    </div>
+                    <h3 className="text-xs font-mono text-ink-muted uppercase tracking-wider mb-4">Presupuesto generado por IA</h3>
                     <div className="whitespace-pre-wrap text-sm leading-relaxed text-ink-muted font-mono">{quoteText}</div>
                   </div>
 
-                  <div className="border-t border-line bg-bone/30 px-10 py-6">
+                  <div className="border-t border-line bg-bone-200/30 px-10 py-6">
                     <p className="text-xs leading-relaxed text-ink-muted">
                       Esta cotización ha sido generada automáticamente por LogiQuote mediante IA y es orientativa.
                       Para confirmar la reserva, contacta con tu transitaria. Cotización válida 15 días desde la fecha de emisión.
@@ -259,10 +257,10 @@ export default function Cotizador() {
                 </div>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-                  <button onClick={() => showToast('Exportación PDF disponible próximamente', 'info')} className="btn-primary py-4">
-                    <FileDown className="h-4 w-4" /> Descargar PDF
+                  <button onClick={() => showToast('Exportación PDF disponible próximamente', 'info')} className="btn-primary py-4" aria-label="Descargar PDF de la cotizacion">
+                    <FileDown className="h-4 w-4" aria-hidden="true" /> Descargar PDF
                   </button>
-                  <button onClick={handleReset} className="btn-secondary py-4"><ArrowLeft className="h-4 w-4" /> Nueva cotización</button>
+                  <button onClick={handleReset} className="btn-secondary py-4"><ArrowLeft className="h-4 w-4" aria-hidden="true" /> Nueva cotización</button>
                 </div>
               </motion.div>
             )}
@@ -281,19 +279,19 @@ function LoadingStep({ label, delay }: { label: string; delay: number }) {
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3, delay: delay / 1000 }}
-      className={`flex items-center gap-3 border px-4 py-3 transition-all duration-300 ${done ? 'border-success bg-success-bg' : 'border-line bg-white'}`}
+      className={`flex items-center gap-3 border px-4 py-3 transition-all duration-300 ${done ? 'border-success bg-success/10' : 'border-line bg-white'}`}
       style={{ borderRadius: '6px' }}
     >
-      {done ? <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-success" /> : <Loader2 className="h-4 w-4 flex-shrink-0 animate-spin text-ink-muted" />}
+      {done ? <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-success" aria-hidden="true" /> : <Loader2 className="h-4 w-4 flex-shrink-0 animate-spin text-ink-muted" aria-hidden="true" />}
       <span className={`text-sm font-mono transition-colors duration-300 ${done ? 'text-ink' : 'text-ink-muted'}`}>{label}</span>
     </motion.div>
   );
 }
 
-function RouteInfo({ icon: Icon, label, value }: { icon: typeof MapPin; label: string; value: string }) {
+function RouteInfo({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="mb-2 flex items-center gap-1.5 text-xs text-ink-muted font-mono"><Icon className="h-3.5 w-3.5" /> {label}</div>
+      <p className="mb-2 text-xs text-ink-muted font-mono">{label}</p>
       <p className="truncate text-sm font-mono font-semibold text-ink">{value}</p>
     </div>
   );

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
+
 import { Logo } from '@/components/Logo';
 import { siteConfig } from '@/lib/content';
 
@@ -44,30 +45,30 @@ const footerColumns = [
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-white relative overflow-hidden">
+    <footer className="bg-bone border-t border-line-light relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[300px] w-[600px] rounded-full bg-signal/8 blur-[120px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-[200px] w-[500px] rounded-full bg-signal/[0.03] blur-[100px]" />
       </div>
-      <div className="relative mx-auto max-w-9xl px-6 py-16">
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
         <div className="grid gap-12 md:grid-cols-12">
           <div className="md:col-span-4">
             <Logo variant="dark" size="lg" />
-            <p className="mt-4 text-sm text-slate-400 leading-relaxed max-w-xs">
+            <p className="mt-4 text-sm text-ink-muted leading-relaxed max-w-xs">
               Software de cotizaciones logísticas con IA para transitarios y agentes de aduanas en España.
             </p>
             <div className="mt-6 space-y-2 text-sm">
-              <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 text-slate-400 transition-colors duration-200 hover:text-signal-light">
-                <Mail className="h-4 w-4" />
+              <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2 text-ink-muted transition-colors duration-200 hover:text-ink">
+                <Mail className="h-4 w-4" aria-hidden="true" />
                 {siteConfig.email}
               </a>
               {siteConfig.phone && (
-                <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-slate-400 transition-colors duration-200 hover:text-signal-light">
-                  <Phone className="h-4 w-4" />
+                <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-2 text-ink-muted transition-colors duration-200 hover:text-ink">
+                  <Phone className="h-4 w-4" aria-hidden="true" />
                   {siteConfig.phone}
                 </a>
               )}
-              <p className="flex items-start gap-2 text-slate-500 text-xs leading-relaxed">
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+              <p className="flex items-start gap-2 text-ink-muted text-xs leading-relaxed">
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
                 {siteConfig.company.address}
               </p>
             </div>
@@ -76,11 +77,11 @@ export function Footer() {
           <div className="md:col-span-8 grid grid-cols-2 gap-8 sm:grid-cols-4">
             {footerColumns.map((col) => (
               <div key={col.title}>
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">{col.title}</h3>
+                <h3 className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted/70 mb-4 font-mono">{col.title}</h3>
                 <ul className="space-y-2.5">
                   {col.links.map((link) => (
                     <li key={link.label}>
-                      <Link to={link.href} className="text-sm text-slate-400 transition-colors duration-200 hover:text-signal-light">
+                      <Link to={link.href} className="text-sm text-ink-muted transition-colors duration-200 hover:text-ink">
                         {link.label}
                       </Link>
                     </li>
@@ -91,17 +92,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <p className="text-xs text-slate-500 font-mono">
+        <div className="mt-12 pt-8 border-t border-line-light flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-xs text-ink-muted/70 font-mono">
             © 2026 {siteConfig.company.legalName}{siteConfig.company.cif ? ` · CIF ${siteConfig.company.cif}` : ''}
           </p>
-          <div className="flex items-center gap-4 text-xs text-slate-500">
+          <div className="flex items-center gap-4 text-xs text-ink-muted/70 font-mono">
             <span>Pagos seguros con Stripe</span>
-            <span className="text-white/15">·</span>
+            <span className="text-ink/10">·</span>
             <span>RGPD</span>
-            <span className="text-white/15">·</span>
+            <span className="text-ink/10">·</span>
             <span>SSL</span>
-            <span className="text-white/15">·</span>
+            <span className="text-ink/10">·</span>
             <span>Datos en la UE</span>
           </div>
         </div>

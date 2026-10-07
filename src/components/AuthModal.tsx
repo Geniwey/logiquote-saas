@@ -49,9 +49,9 @@ export function AuthModal({ open, initialMode, onClose, title, subtitle }: AuthM
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 animate-fade-in" onClick={onClose}>
-      <div className="absolute inset-0 bg-ink/40 backdrop-blur-sm" />
-      <div className="relative w-full max-w-md bg-white border border-line p-8 animate-fade-up" style={{ borderRadius: '6px' }} onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center text-ink-muted transition-colors hover:bg-bone hover:text-ink" aria-label="Cerrar" style={{ borderRadius: '4px' }}>
+      <div className="absolute inset-0 bg-bone/60 backdrop-blur-sm" />
+      <div className="relative w-full max-w-md bg-white border border-line p-8 animate-fade-up" style={{ borderRadius: '12px' }} onClick={(e) => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center text-ink-muted transition-colors hover:bg-bone-200 hover:text-ink" aria-label="Cerrar" style={{ borderRadius: '8px' }}>
           <X className="h-4 w-4" />
         </button>
 
@@ -76,7 +76,7 @@ export function AuthModal({ open, initialMode, onClose, title, subtitle }: AuthM
             </div>
           </div>
 
-          {error && <div className="border border-error bg-error-bg px-4 py-3 text-sm text-error" style={{ borderRadius: '4px' }}>{error}</div>}
+          {error && <div className="border border-error bg-error/10 px-4 py-3 text-sm text-error" style={{ borderRadius: '8px' }}>{error}</div>}
 
           <button type="submit" disabled={loading} className="btn-primary w-full py-3.5 disabled:opacity-60 disabled:cursor-not-allowed">
             {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Procesando...</> : <>{isSignUp ? 'Crear cuenta' : 'Acceder'} <ArrowRight className="h-4 w-4" /></>}
@@ -85,7 +85,7 @@ export function AuthModal({ open, initialMode, onClose, title, subtitle }: AuthM
 
         <p className="mt-6 text-center text-sm text-ink-muted">
           {isSignUp ? '¿Ya tienes cuenta?' : '¿Aún no tienes cuenta?'}{' '}
-          <button onClick={() => { setMode(isSignUp ? 'signin' : 'signup'); setError(null); }} className="font-semibold text-signal transition-colors hover:text-signal-dark">
+          <button onClick={() => { setMode(isSignUp ? 'signin' : 'signup'); setError(null); }} className="font-semibold text-signal transition-colors hover:text-signal-light">
             {isSignUp ? 'Iniciar sesión' : 'Crear cuenta gratis'}
           </button>
         </p>

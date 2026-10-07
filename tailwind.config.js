@@ -16,8 +16,6 @@ export default {
         },
         bone: {
           DEFAULT: '#F8FAFC',
-          50: '#FFFFFF',
-          100: '#F8FAFC',
           200: '#F1F5F9',
           300: '#E2E8F0',
         },
@@ -37,6 +35,11 @@ export default {
           dark: '#4338CA',
           bg: '#EEF2FF',
         },
+        accent: {
+          DEFAULT: '#3B82F6',
+          light: '#60A5FA',
+          dim: '#1E40AF',
+        },
         success: {
           DEFAULT: '#059669',
           bg: '#ECFDF5',
@@ -51,6 +54,8 @@ export default {
         },
       },
       maxWidth: {
+        '6xl': '72rem',
+        '7xl': '80rem',
         '8xl': '88rem',
         '9xl': '96rem',
       },
@@ -76,6 +81,10 @@ export default {
       letterSpacing: {
         'tight-display': '-0.02em',
         'tight-hero': '-0.04em',
+      },
+      transitionTimingFunction: {
+        'ease-out-expo': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        'ease-in-out-quart': 'cubic-bezier(0.77, 0, 0.175, 1)',
       },
     },
   },

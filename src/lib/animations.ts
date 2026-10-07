@@ -5,7 +5,7 @@ export const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 export const springSoft: { type: 'spring'; stiffness: number; damping: number; mass: number } = {
   type: 'spring',
   stiffness: 100,
-  damping: 18,
+  damping: 20,
   mass: 1,
 };
 
@@ -35,15 +35,15 @@ export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.05,
+      staggerChildren: 0.06,
+      delayChildren: 0.04,
     },
   },
 };
 
 export const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOut } },
 };
 
 export const whileHoverCard = {
